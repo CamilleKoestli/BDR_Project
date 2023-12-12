@@ -1,0 +1,23 @@
+version: '3.8'
+
+name: bdr-projet
+
+networks:
+  bdr-net:
+    driver: bridge
+
+services:
+  postgresql:
+    image: 'bitnami/postgresql:16'
+    container_name: bdr-projet-postgresql
+    environment:
+      - POSTGRESQL_USERNAME=bdr
+      - POSTGRESQL_PASSWORD=bdr
+      - POSTGRESQL_DATABASE=bdr
+      - POSTGRESQL_POSTGRES_PASSWORD=root
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/data:ro
+    networks:
+      - bdr-net
