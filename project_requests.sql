@@ -20,6 +20,10 @@ $$;
 -- Utilisateur
 --
 
+-- Consulter tous les utilisateurs
+SELECT *
+FROM "Utilisateur";
+
 -- Consulter, créer et modifier un utilisateur
 -- Consulter un utilisateur
 CREATE OR REPLACE PROCEDURE see_user(
@@ -203,6 +207,10 @@ $$;
 --
 -- Artiste
 --
+
+-- Consulter tous les artistes
+SELECT *
+FROM "Artiste";
 
 -- Accepter ou refuser une demande d’abonnement
 CREATE OR REPLACE PROCEDURE respond_subscription_request(
