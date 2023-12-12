@@ -24,7 +24,7 @@ create table "Artiste"
         constraint "Pseudo_fk"
             references "Utilisateur",
     description varchar(255)
-)INHERITS ("Utilisateur");
+);
 
 --
 -- Table `Statut`

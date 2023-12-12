@@ -28,9 +28,9 @@ SELECT p.id_photo,
        p.extension,
        p.pseudo AS artiste_pseudo,
        tp.mot   AS tag
-FROM "Photo" p
-         JOIN
+FROM "PhotoPublic" p
+         INNER JOIN
      "TagPhoto" tp ON p.id_photo = tp.id_photo
-         JOIN
+         INNER JOIN
      "Tag" t ON tp.mot = t.mot;
 --
