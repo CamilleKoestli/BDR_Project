@@ -9,8 +9,8 @@ create table "Utilisateur"
 (
     pseudo      varchar(255) not null
         primary key,
-    motdepasse  varchar(255),
-    adressemail varchar(255)
+    motdepasse  varchar(255) not null,
+    adressemail varchar(255) not null
 );
 
 --
@@ -49,11 +49,11 @@ create table "Statut"
 create table "Photo"
 (
     id_photo SERIAL PRIMARY KEY,
-    titre       varchar(255),
+    titre       varchar(255) not null,
     datepubliee date,
     legende     text,
-    extension   varchar(255),
-    pseudo      varchar(255)
+    extension   varchar(255) not null,
+    pseudo      varchar(255) not null
         constraint "PseudoArt_fk"
             references "Artiste"
 );
@@ -65,7 +65,7 @@ create table "Commentaire"
 (
     id_comm SERIAL PRIMARY KEY,
     texte    text,
-    pseudo   varchar(255)
+    pseudo   varchar(255) not null
         constraint "Pseudo_fk"
             references "Utilisateur",
     id_photo integer
