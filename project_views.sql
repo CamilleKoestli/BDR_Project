@@ -13,7 +13,7 @@ SELECT pp.id_photo,
        s.pseudo  AS utilisateur_pseudo
 FROM "PhotoPrive" pp
          INNER JOIN
-     "Status" s ON pp.pseudo = s."pseudoArt"
+     Statut s ON pp.pseudo = s."pseudoArt"
          INNER JOIN
      "Utilisateur" u ON s.pseudo = u.pseudo
 WHERE s.accepte_refus = TRUE;

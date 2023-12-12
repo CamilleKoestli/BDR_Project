@@ -27,17 +27,19 @@ create table "Artiste"
 )INHERITS ("Utilisateur");
 
 --
--- Table `status`
+-- Table `Statut`
 --
-create table "Status"
+create table "Statut"
 (
+    --TRUE : suiveur    FALSE : abonnement
     typedemande   BOOLEAN not null,
+    -- TRUE : accepté   FALSE : refusé     NULL : en attente
     accepte_refus BOOLEAN,
     pseudo        varchar(255) not null
-        constraint "Status___fk"
+        constraint "Statut___fk"
             references "Utilisateur",
     "pseudoArt"   varchar(255) not null
-        constraint "Status__pseudo_fk"
+        constraint "Statut__pseudo_fk"
             references "Artiste"
 );
 

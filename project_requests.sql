@@ -92,8 +92,8 @@ CREATE OR REPLACE PROCEDURE follow_artist(
 AS
 $$
 BEGIN
-    INSERT INTO "Status" (typedemande, accepte_refus, pseudo, "pseudoArt")
-    VALUES (FALSE, NULL, u_pseudo, a_pseudo);
+    INSERT INTO "Statut" (typedemande, accepte_refus, pseudo, "pseudoArt")
+    VALUES (TRUE, TRUE, u_pseudo, a_pseudo);
 END;
 $$;
 
@@ -105,7 +105,7 @@ CREATE OR REPLACE PROCEDURE unfollow_artist(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    UPDATE "Status"
+    UPDATE "Statut"
     SET accepte_refus = FALSE
     WHERE pseudo = u_pseudo AND "pseudoArt" = a_pseudo;
 END;
@@ -113,20 +113,21 @@ $$;
 --
 
 -- S'abonner ou se désabonner à un artiste
+-- S'abonner à un artiste
     CREATE OR REPLACE PROCEDURE subscribe_artist(
-    utilisateur_pseudo VARCHAR(255),
-    artiste_pseudo VARCHAR(255)
+    u_pseudo VARCHAR(255),
+    a_pseudo VARCHAR(255)
 )
     LANGUAGE plpgsql
 AS
 $$
 BEGIN
-    INSERT INTO "Status" (typedemande, accepte_refus, pseudo, "pseudoArt")
-    VALUES (TRUE, TRUE, utilisateur_pseudo, artiste_pseudo);
+    INSERT INTO "Statut" (typedemande, accepte_refus, pseudo, "pseudoArt")
+    VALUES (FALSE, NULL, u_pseudo, a_pseudo);
 END;
 $$;
 
--- Ne plus suivre un artiste
+-- Se désabonner un artiste
 CREATE OR REPLACE PROCEDURE unsubscribe_artist(
     utilisateur_pseudo VARCHAR(255),
     artiste_pseudo VARCHAR(255)
@@ -134,7 +135,7 @@ CREATE OR REPLACE PROCEDURE unsubscribe_artist(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    UPDATE "Status"
+    UPDATE "Statut"
     SET accepte_refus = FALSE
     WHERE pseudo = utilisateur_pseudo AND "pseudoArt" = artiste_pseudo;
 END;
@@ -212,11 +213,11 @@ CREATE OR REPLACE PROCEDURE respond_subscription_request(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    UPDATE "Status"
+    UPDATE "Statut"
     SET accepte_refus = accepted
     WHERE typedemande = FALSE
-    AND pseudo = a_pseudo
-    AND "pseudoArt" = u_pseudo;
+        AND pseudo = a_pseudo
+        AND "pseudoArt" = u_pseudo;
 END;
 $$;
 -- Ajouter ou supprimer une photo
