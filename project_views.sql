@@ -13,7 +13,7 @@ SELECT pp.id_photo,
        s.pseudo  AS utilisateur_pseudo
 FROM "PhotoPrive" pp
          INNER JOIN
-     Statut s ON pp.pseudo = s."pseudoArt"
+     "Statut" s ON pp.pseudo = s."pseudoArt"
          INNER JOIN
      "Utilisateur" u ON s.pseudo = u.pseudo
 WHERE s.accepte_refus = TRUE;
@@ -21,18 +21,16 @@ WHERE s.accepte_refus = TRUE;
 
 -- Les tags
 CREATE OR REPLACE VIEW view_photo_tag AS
-SELECT
-    p.id_photo,
-    p.titre,
-    p.datepubliee,
-    p.legende,
-    p.extension,
-    p.pseudo AS artiste_pseudo,
-    tp.mot AS tag
-FROM
-    "Photo" p
-JOIN
-    "TagPhoto" tp ON p.id_photo = tp.id_photo
-JOIN
-    "Tag" t ON tp.mot = t.mot;
+SELECT p.id_photo,
+       p.titre,
+       p.datepubliee,
+       p.legende,
+       p.extension,
+       p.pseudo AS artiste_pseudo,
+       tp.mot   AS tag
+FROM "Photo" p
+         JOIN
+     "TagPhoto" tp ON p.id_photo = tp.id_photo
+         JOIN
+     "Tag" t ON tp.mot = t.mot;
 --
