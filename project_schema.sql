@@ -1,3 +1,10 @@
+DROP SCHEMA IF EXISTS projet_schema CASCADE;
+CREATE SCHEMA projet_schema;
+COMMENT ON SCHEMA projet_schema IS 'Projet de semestre BDR';
+
+--
+-- Table `utilisateur`
+--
 create table "Utilisateur"
 (
     pseudo      varchar(255) not null
@@ -6,9 +13,9 @@ create table "Utilisateur"
     adressemail varchar(255)
 );
 
-alter table "Utilisateur"
-    owner to bdr;
-
+--
+-- Table `artiste`
+--
 create table "Artiste"
 (
     pseudo      varchar(255) not null
@@ -17,15 +24,15 @@ create table "Artiste"
         constraint "Artiste___fk"
             references "Utilisateur",
     description varchar(255)
-);
+)INHERITS ("Utilisateur");
 
-alter table "Artiste"
-    owner to bdr;
-
+--
+-- Table `status`
+--
 create table "Status"
 (
-    typedemande   varchar(255) not null,
-    accepte_refus varchar(255),
+    typedemande   BOOLEAN not null,
+    accepte_refus BOOLEAN,
     pseudo        varchar(255) not null
         constraint "Status___fk"
             references "Utilisateur",
@@ -34,13 +41,12 @@ create table "Status"
             references "Artiste"
 );
 
-alter table "Status"
-    owner to bdr;
-
+--
+-- Table `photo`
+--
 create table "Photo"
 (
-    id_photo    integer not null
-        primary key,
+    id_photo SERIAL PRIMARY KEY,
     titre       varchar(255),
     datepubliee date,
     legende     text,
@@ -50,13 +56,12 @@ create table "Photo"
             references "Artiste"
 );
 
-alter table "Photo"
-    owner to bdr;
-
+--
+-- Table `commentaire`
+--
 create table "Commentaire"
 (
-    id_comm  integer not null
-        primary key,
+    id_comm SERIAL PRIMARY KEY,
     texte    text,
     pseudo   varchar(255)
         constraint "Commentaire___fk2"
@@ -66,30 +71,28 @@ create table "Commentaire"
             references "Photo"
 );
 
-alter table "Commentaire"
-    owner to bdr;
-
+--
+-- Table `photo public`
+--
 create table "PhotoPublic"
 (
-    id_photo integer not null
-        primary key
+    id_photo SERIAL PRIMARY KEY
         references "Photo"
-);
+)INHERITS ("Photo");
 
-alter table "PhotoPublic"
-    owner to bdr;
-
+--
+-- Table `photo privée`
+--
 create table "PhotoPrive"
 (
-    id_photo integer not null
-        primary key
+    id_photo SERIAL PRIMARY KEY
         constraint "PhotoPrive_PhotoPrive__fk"
             references "Photo"
-);
+)INHERITS ("Photo");
 
-alter table "PhotoPrive"
-    owner to bdr;
-
+--
+-- Table `tag`
+--
 create table "Tag"
 (
     pseudo varchar(255) not null
@@ -100,9 +103,9 @@ create table "Tag"
             primary key
 );
 
-alter table "Tag"
-    owner to bdr;
-
+--
+-- Table `dossier`
+--
 create table "Dossier"
 (
     nom        varchar(255) not null,
@@ -110,13 +113,12 @@ create table "Dossier"
         constraint "Dossier_pk"
             unique
         references "Utilisateur",
-    id_dossier integer      not null
-        primary key
+    id_dossier SERIAL PRIMARY KEY
 );
 
-alter table "Dossier"
-    owner to bdr;
-
+--
+-- Table `réaction`
+--
 create table "Reaction"
 (
     plus_moins varchar(255) not null,
@@ -132,9 +134,9 @@ create table "Reaction"
     primary key (id_photo, pseudo)
 );
 
-alter table "Reaction"
-    owner to bdr;
-
+--
+-- Table `tag utilisateur`
+--
 create table "TagUtilisateur"
 (
     pseudo varchar(255) not null
@@ -146,9 +148,9 @@ create table "TagUtilisateur"
     primary key (pseudo, mot)
 );
 
-alter table "TagUtilisateur"
-    owner to bdr;
-
+--
+-- Table `tag photo`
+--
 create table "TagPhoto"
 (
     mot      varchar(255) not null
@@ -162,9 +164,9 @@ create table "TagPhoto"
     primary key (mot, id_photo)
 );
 
-alter table "TagPhoto"
-    owner to bdr;
-
+--
+-- Table `dossier photo`
+--
 create table "DossierPhoto"
 (
     id_dossier integer not null
@@ -179,6 +181,3 @@ create table "DossierPhoto"
             references "Photo",
     primary key (id_photo, id_dossier)
 );
-
-alter table "DossierPhoto"
-    owner to bdr;
