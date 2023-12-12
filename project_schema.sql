@@ -8,7 +8,7 @@ COMMENT ON SCHEMA projet_schema IS 'Projet de semestre BDR';
 create table "Utilisateur"
 (
     pseudo      varchar(255) not null
-        primary key,
+        unique primary key,
     motdepasse  varchar(255) not null,
     adressemail varchar(255) not null
 );
