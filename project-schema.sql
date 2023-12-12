@@ -7,7 +7,7 @@ create table "Utilisateur"
 );
 
 alter table "Utilisateur"
-    owner to postgres;
+    owner to bdr;
 
 create table "Artiste"
 (
@@ -20,7 +20,7 @@ create table "Artiste"
 );
 
 alter table "Artiste"
-    owner to postgres;
+    owner to bdr;
 
 create table "Status"
 (
@@ -32,7 +32,7 @@ create table "Status"
 );
 
 alter table "Status"
-    owner to postgres;
+    owner to bdr;
 
 create table "Photo"
 (
@@ -48,7 +48,7 @@ create table "Photo"
 );
 
 alter table "Photo"
-    owner to postgres;
+    owner to bdr;
 
 create table "Commentaire"
 (
@@ -64,7 +64,7 @@ create table "Commentaire"
 );
 
 alter table "Commentaire"
-    owner to postgres;
+    owner to bdr;
 
 create table "PhotoPublic"
 (
@@ -74,7 +74,7 @@ create table "PhotoPublic"
 );
 
 alter table "PhotoPublic"
-    owner to postgres;
+    owner to bdr;
 
 create table "PhotoPrive"
 (
@@ -85,7 +85,7 @@ create table "PhotoPrive"
 );
 
 alter table "PhotoPrive"
-    owner to postgres;
+    owner to bdr;
 
 create table "Tag"
 (
@@ -98,7 +98,7 @@ create table "Tag"
 );
 
 alter table "Tag"
-    owner to postgres;
+    owner to bdr;
 
 create table "Dossier"
 (
@@ -112,7 +112,7 @@ create table "Dossier"
 );
 
 alter table "Dossier"
-    owner to postgres;
+    owner to bdr;
 
 create table "Reaction"
 (
@@ -130,7 +130,7 @@ create table "Reaction"
 );
 
 alter table "Reaction"
-    owner to postgres;
+    owner to bdr;
 
 create table "TagUtilisateur"
 (
@@ -144,7 +144,7 @@ create table "TagUtilisateur"
 );
 
 alter table "TagUtilisateur"
-    owner to postgres;
+    owner to bdr;
 
 create table "TagPhoto"
 (
@@ -160,7 +160,7 @@ create table "TagPhoto"
 );
 
 alter table "TagPhoto"
-    owner to postgres;
+    owner to bdr;
 
 create table "DossierPhoto"
 (
@@ -178,4 +178,4 @@ create table "DossierPhoto"
 );
 
 alter table "DossierPhoto"
-    owner to postgres;
+    owner to bdr;
