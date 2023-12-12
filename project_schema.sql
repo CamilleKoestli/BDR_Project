@@ -21,7 +21,7 @@ create table "Artiste"
     pseudo      varchar(255) not null
         constraint "Artiste_pk"
             primary key
-        constraint "Artiste___fk"
+        constraint "Pseudo_fk"
             references "Utilisateur",
     description varchar(255)
 )INHERITS ("Utilisateur");
@@ -36,10 +36,10 @@ create table "Statut"
     -- TRUE : accepté   FALSE : refusé     NULL : en attente
     accepte_refus BOOLEAN,
     pseudo        varchar(255) not null
-        constraint "Statut___fk"
+        constraint "Pseudo_fk"
             references "Utilisateur",
     "pseudoArt"   varchar(255) not null
-        constraint "Statut__pseudo_fk"
+        constraint "PseudoArt_fk"
             references "Artiste"
 );
 
@@ -54,7 +54,7 @@ create table "Photo"
     legende     text,
     extension   varchar(255),
     pseudo      varchar(255)
-        constraint "Photo___fk"
+        constraint "PseudoArt_fk"
             references "Artiste"
 );
 
@@ -66,10 +66,10 @@ create table "Commentaire"
     id_comm SERIAL PRIMARY KEY,
     texte    text,
     pseudo   varchar(255)
-        constraint "Commentaire___fk2"
+        constraint "Pseudo_fk"
             references "Utilisateur",
     id_photo integer
-        constraint "Commentaire___fk"
+        constraint "IDPhoto_fk"
             references "Photo"
 );
 
@@ -88,7 +88,7 @@ create table "PhotoPublic"
 create table "PhotoPrive"
 (
     id_photo SERIAL PRIMARY KEY
-        constraint "PhotoPrive_PhotoPrive__fk"
+        constraint "IDPhoto_fk"
             references "Photo"
 )INHERITS ("Photo");
 
@@ -98,7 +98,7 @@ create table "PhotoPrive"
 create table "Tag"
 (
     pseudo varchar(255) not null
-        constraint "Tag___fk"
+        constraint "PseudoArt_fk"
             references "Artiste",
     mot    varchar      not null
         constraint "Tag_pk"
@@ -127,7 +127,7 @@ create table "Reaction"
     id_photo   integer      not null
         constraint "Reaction_pk2"
             unique
-        constraint "Reaction_Reaction__fk"
+        constraint "IDPhoto_fk"
             references "Photo",
     pseudo     varchar(255) not null
         constraint "Reaction_pk"
@@ -142,10 +142,10 @@ create table "Reaction"
 create table "TagUtilisateur"
 (
     pseudo varchar(255) not null
-        constraint "TagUtilisateur_TagUtilisateur__fk"
+        constraint "Pseudo_fk"
             references "Utilisateur",
     mot    varchar(255) not null
-        constraint "TagUtilisateur___fk"
+        constraint "Mot_fk"
             references "Tag",
     primary key (pseudo, mot)
 );
@@ -156,12 +156,12 @@ create table "TagUtilisateur"
 create table "TagPhoto"
 (
     mot      varchar(255) not null
-        constraint "TagPhoto_TagPhoto__fk2"
+        constraint "Mot_fk"
             references "Tag",
     id_photo integer      not null
         constraint "TagPhoto_pk"
             unique
-        constraint "TagPhoto_TagPhoto__fk"
+        constraint "IDPhoto_fk"
             references "Photo",
     primary key (mot, id_photo)
 );
@@ -174,12 +174,12 @@ create table "DossierPhoto"
     id_dossier integer not null
         constraint "DossierPhoto_pk"
             unique
-        constraint "DossierPhoto_fk"
+        constraint "IDDossier_fk"
             unique
         constraint "DossierPhoto___fk"
             references "Dossier",
     id_photo   integer not null
-        constraint "DossierPhoto___fk2"
+        constraint "IDPhoto_fk"
             references "Photo",
     primary key (id_photo, id_dossier)
 );
