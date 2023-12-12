@@ -123,7 +123,8 @@ create table "Dossier"
 --
 create table "Reaction"
 (
-    plus_moins varchar(255) not null,
+    --TRUE : plus    FALSE : moins
+    plus_moins BOOLEAN not null,
     id_photo   integer      not null
         constraint "Reaction_pk2"
             unique
