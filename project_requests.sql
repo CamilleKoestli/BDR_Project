@@ -1,4 +1,4 @@
-SET search_path=projet_schema;
+SET search_path = projet_schema;
 
 --
 -- Requests
@@ -80,7 +80,7 @@ WHERE pseudo = :pseudo
 -- Mettre ou enlever une photo d’un dossier
 -- Mettre une photo dans un dossier
 INSERT INTO "DossierPhoto" (id_dossier, id_photo)
-VALUES (:dossier,:photo);
+VALUES (:dossier, :photo);
 
 -- Enlever une photo dans un dossier
 DELETE
@@ -125,9 +125,7 @@ FROM "Artiste";
 -- Consulter les photos publiques et privées d’un artiste
 SELECT *
 FROM "Photo"
-         INNER JOIN "PhotoPublic" PP ON "Photo".id_photo = PP.id_photo
-         INNER JOIN "PhotoPrive" PPr ON "Photo".id_photo = PPr.id_photo
-WHERE "Photo".pseudo = :pseudo ;
+WHERE "Photo".pseudo = :pseudo;
 --
 
 -- Accepter ou refuser une demande d’abonnement
@@ -150,6 +148,14 @@ WHERE id_photo = :photo
 --
 
 -- Spécifier les attributs de sa photo et spécifier le statut d’une photo (public ou privé)
+-- Attributs photos
+UPDATE "Photo"
+SET titre   = :titre,
+    legende = :legende
+WHERE id_photo = :photo
+  AND pseudo = :pseudo;
+-- Privé ou public
+
 --
 
 -- Ajouter, modifier ou supprimer des tags

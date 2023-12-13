@@ -2,6 +2,7 @@ DROP SCHEMA IF EXISTS projet_schema CASCADE;
 CREATE SCHEMA projet_schema;
 COMMENT ON SCHEMA projet_schema IS 'Projet de semestre BDR';
 
+SET search_path = projet_schema;
 --
 -- Table `utilisateur`
 --
@@ -53,6 +54,8 @@ create table "Photo"
     datepubliee date,
     legende     text,
     extension   varchar(255) not null,
+    -- TRUE : public        FALSE : private
+    visible        BOOLEAN not null default true,
     pseudo      varchar(255) not null
         constraint "PseudoArt_fk"
             references "Artiste"
@@ -73,24 +76,6 @@ create table "Commentaire"
             references "Photo"
 );
 
---
--- Table `photo public`
---
-create table "PhotoPublic"
-(
-    id_photo SERIAL PRIMARY KEY
-        references "Photo"
-)INHERITS ("Photo");
-
---
--- Table `photo privée`
---
-create table "PhotoPrive"
-(
-    id_photo SERIAL PRIMARY KEY
-        constraint "IDPhoto_fk"
-            references "Photo"
-)INHERITS ("Photo");
 
 --
 -- Table `tag`
