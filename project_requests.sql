@@ -1,4 +1,5 @@
 SET search_path=projet_schema;
+
 --
 -- Requests
 --
@@ -32,9 +33,6 @@ WHERE pseudo = :pseudo;
 DELETE
 FROM "Utilisateur"
 WHERE pseudo = :pseudo;
---
-
--- Consulter les photos que peut voir un utilisateur
 --
 
 -- Suivre ou ne plus suivre à un artiste
@@ -80,12 +78,38 @@ WHERE pseudo = :pseudo
 --
 
 -- Mettre ou enlever une photo d’un dossier
+-- Mettre une photo dans un dossier
+INSERT INTO "DossierPhoto" (id_dossier, id_photo)
+VALUES (:dossier,:photo);
+
+-- Enlever une photo dans un dossier
+DELETE
+FROM "DossierPhoto"
+WHERE id_dossier = :dossier
+  AND id_photo = :photo;
 --
 
 -- Ajouter ou modifier un commentaire
+-- Ajouter un commentaire
+INSERT INTO "Commentaire" (texte, pseudo, id_photo)
+VALUES (:text, :pseudo, :photo);
+
+-- Modifier un commentaire
+UPDATE "Commentaire"
+SET texte = :texte
+WHERE id_comm = :id_comm;
 --
 
 -- Ajouter ou modifier une réaction
+-- Ajouter une réaction
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo)
+VALUES (:plus_moins, :photo, :pseudo);
+
+-- Modifier une réaction
+UPDATE "Reaction"
+SET plus_moins = :plus_moins
+WHERE id_photo = :id_photo
+  AND pseudo = :pseudo;
 --
 
 
@@ -114,10 +138,20 @@ WHERE typedemande = FALSE
   AND "pseudoArt" = :pseudo;
 
 -- Ajouter ou supprimer une photo
+-- Ajouter une photo
+INSERT INTO "Photo"(titre, datepubliee, legende, extension, pseudo)
+VALUES (:titre, :datepubliee, :legende, :extension, :pseudo);
+
+-- Supprimer une photo
+DELETE
+FROM "Photo"
+WHERE id_photo = :photo
+  AND pseudo = :pseudo;
 --
 
 -- Spécifier les attributs de sa photo et spécifier le statut d’une photo (public ou privé)
 --
 
 -- Ajouter, modifier ou supprimer des tags
+
 --
