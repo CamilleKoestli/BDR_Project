@@ -1,8 +1,8 @@
-DROP SCHEMA IF EXISTS projet_schema CASCADE;
-CREATE SCHEMA projet_schema;
-COMMENT ON SCHEMA projet_schema IS 'Projet de semestre BDR';
+DROP SCHEMA IF EXISTS project_schema CASCADE;
+CREATE SCHEMA project_schema;
+COMMENT ON SCHEMA project_schema IS 'Projet de semestre BDR';
 
-SET search_path = projet_schema;
+SET search_path = project_schema;
 --
 -- Table `utilisateur`
 --
@@ -14,18 +14,6 @@ create table "Utilisateur"
     adressemail varchar(255) not null
 );
 
---
--- Table `artiste`
---
-create table "Artiste"
-(
-    pseudo      varchar(255) not null
-        constraint "Artiste_pk"
-            primary key
-        constraint "Pseudo_fk"
-            references "Utilisateur",
-    description varchar(255)
-);
 
 --
 -- Table `Statut`
@@ -41,7 +29,7 @@ create table "Statut"
             references "Utilisateur",
     "pseudoArt"   varchar(255) not null
         constraint "PseudoArt_fk"
-            references "Artiste"
+            references "Utilisateur"
 );
 
 --
@@ -58,8 +46,9 @@ create table "Photo"
     visible        BOOLEAN not null default true,
     pseudo      varchar(255) not null
         constraint "PseudoArt_fk"
-            references "Artiste"
+            references "Utilisateur"
 );
+
 
 --
 -- Table `commentaire`
@@ -84,7 +73,7 @@ create table "Tag"
 (
     pseudo varchar(255) not null
         constraint "PseudoArt_fk"
-            references "Artiste",
+            references "Utilisateur",
     mot    varchar      not null
         constraint "Tag_pk"
             primary key
@@ -169,3 +158,31 @@ create table "DossierPhoto"
             references "Photo",
     primary key (id_photo, id_dossier)
 );
+
+--
+-- Table `Badge`
+--
+create table "Badge"
+(
+    nom         varchar(255),
+    description varchar(255),
+    id_badge    integer not null
+        constraint "Badge_pk"
+            primary key
+);
+
+--
+-- Table `BadgeUtilisateur`
+--
+create table "BadgeUtilisateur"
+(
+    id_badge integer      not null
+        constraint "BadgeUtilisateur_Badge_id_badge_fk"
+            references "Badge",
+    pseudo   varchar(255) not null
+        constraint "BadgeUtilisateur_Utilisateur_pseudo_fk"
+            references "Utilisateur",
+    constraint "BadgeUtilisateur_pk"
+        primary key (id_badge, pseudo)
+);
+
