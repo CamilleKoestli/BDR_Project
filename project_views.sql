@@ -4,16 +4,15 @@
 
 -- Accès aux photos en fonction des abonnements et des suiveurs
 CREATE OR REPLACE VIEW view_photo_follow_subscription AS
-SELECT pp.id_photo,
-       pp.titre,
-       pp.datepubliee,
-       pp.legende,
-       pp.extension,
-       pp.pseudo AS artiste_pseudo,
+SELECT p.id_photo,
+       p.titre,
+       p.datepubliee,
+       p.legende,
+       p.pseudo AS artiste_pseudo,
        s.pseudo  AS utilisateur_pseudo
-FROM "PhotoPrive" pp
+FROM "Photo" p
          INNER JOIN
-     "Statut" s ON pp.pseudo = s."pseudoArt"
+     "Statut" s ON p.pseudo = s."pseudoArt"
          INNER JOIN
      "Utilisateur" u ON s.pseudo = u.pseudo
 WHERE s.accepte_refus = TRUE;
@@ -28,7 +27,7 @@ SELECT p.id_photo,
        p.extension,
        p.pseudo AS artiste_pseudo,
        tp.mot   AS tag
-FROM "PhotoPublic" p
+FROM "Photo" p
          INNER JOIN
      "TagPhoto" tp ON p.id_photo = tp.id_photo
          INNER JOIN

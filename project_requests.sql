@@ -1,4 +1,4 @@
-SET search_path = projet_schema;
+SET search_path = project_schema;
 
 --
 -- Requests
@@ -119,7 +119,8 @@ WHERE id_photo = :id_photo
 
 -- Consulter tous les artistes
 SELECT *
-FROM "Artiste";
+FROM "Utilisateur" U
+INNER JOIN "Photo" P ON U.pseudo = P.pseudo;
 --
 
 -- Consulter les photos publiques et privées d’un artiste
@@ -154,10 +155,35 @@ SET titre   = :titre,
     legende = :legende
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
--- Privé ou public
 
+-- Privé ou public
+UPDATE "Photo"
+SET visible   = :visible
+WHERE id_photo = :photo
+  AND pseudo = :pseudo;
 --
 
 -- Ajouter, modifier ou supprimer des tags
+-- Ajouter un nouveau tag
+INSERT INTO "TagPhoto" (mot, id_photo)
+VALUES (:mot, :photo);
+
+-- Modifier le tag
+UPDATE "TagPhoto"
+SET mot = :mot
+WHERE id_photo = :mot AND mot = :mot;
+
+-- Supprimer le tag de la photo
+DELETE FROM "TagPhoto"
+WHERE id_photo = :photo AND mot = :mot;
+--
 
 --
+-- Badges
+--
+
+-- Voir tous les badges d'un utilisateur
+SELECT B.*
+FROM "Badge" B
+JOIN "BadgeUtilisateur" BU ON B.id_badge = BU.id_badge
+WHERE BU.pseudo = :pseudo;
