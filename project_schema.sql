@@ -134,8 +134,6 @@ create table "TagPhoto"
         constraint "Mot_fk"
             references "Tag",
     id_photo integer      not null
-        constraint "TagPhoto_pk"
-            unique
         constraint "IDPhoto_fk"
             references "Photo",
     primary key (mot, id_photo)
