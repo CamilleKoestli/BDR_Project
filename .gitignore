@@ -5,3 +5,7 @@
 /dataSources/
 /dataSources.local.xml
 **/.idea/
+
+
+/photoz/app/jte-classes/
+photoz/app/bin
