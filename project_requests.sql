@@ -36,7 +36,7 @@ WHERE pseudo = :pseudo;
 --
 
 -- Suivre ou ne plus suivre à un artiste
--- Suivre un artiste
+-- Suivre un artiste TRUE
 INSERT INTO "Statut" (typedemande, accepte_refus, pseudo, "pseudoArt")
 VALUES (TRUE, TRUE, :pseudo, :pseudo);
 
@@ -48,7 +48,7 @@ WHERE pseudo = :pseudo
 --
 
 -- S'abonner ou se désabonner à un artiste
--- S'abonner à un artiste
+-- S'abonner à un artiste FALSE
 INSERT INTO "Statut" (typedemande, accepte_refus, pseudo, "pseudoArt")
 VALUES (FALSE, NULL, :pseudo, :pseudo);
 
