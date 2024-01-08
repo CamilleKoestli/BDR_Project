@@ -22,11 +22,11 @@ INSERT INTO "BadgeUtilisateur" (id_badge, pseudo) VALUES (2, 'jane_smith');
 -- END
 
 -- Photo
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, extension, visible, pseudo) VALUES (1, 'DSC_0001', '12.01.2023', 'chien', 'jpg', true, 'john_doe');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, extension, visible, pseudo) VALUES (2, 'DSC_0002', '12.01.2023', 'chat', 'jpg', false, 'john_doe');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, extension, visible, pseudo) VALUES (3, 'DSC_0001', '04.17.2023', 'cheval', 'jpg', true, 'jane_smith');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, extension, visible, pseudo) VALUES (4, 'DSC_0002', '04.17.2023', 'chien', 'jpg', false, 'jane_smith');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, extension, visible, pseudo) VALUES (5, 'DSC_0002', '12.01.2023', 'chien et chat', 'jpg', false, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (1, 'DSC_0001', '12.01.2023', 'chien', 'jpg', true, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (2, 'DSC_0002', '12.01.2023', 'chat', 'jpg', false, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (3, 'DSC_0001', '04.17.2023', 'cheval', 'jpg', true, 'jane_smith');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (4, 'DSC_0002', '04.17.2023', 'chien', 'jpg', false, 'jane_smith');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (5, 'DSC_0002', '12.01.2023', 'chien et chat', 'jpg', false, 'john_doe');
 
 -- END
 

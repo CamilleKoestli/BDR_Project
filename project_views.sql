@@ -24,7 +24,7 @@ SELECT p.id_photo,
        p.titre,
        p.datepubliee,
        p.legende,
-       p.extension,
+       p.chemin,
        p.pseudo AS artiste_pseudo,
        tp.mot   AS tag
 FROM "Photo" p

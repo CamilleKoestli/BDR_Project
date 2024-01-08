@@ -7,7 +7,7 @@
 
 	@template.layout(
 	content = @`
-	<h1>salut</h1>
+	<h1>Fil d'actualité</h1>
 	<div class="flex flex-wrap">
 		@for(Photo photo : photos)
 		@template.photo(photo)

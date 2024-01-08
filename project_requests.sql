@@ -138,7 +138,7 @@ WHERE typedemande = FALSE
 
 -- Ajouter ou supprimer une photo
 -- Ajouter une photo
-INSERT INTO "Photo"(titre, datepubliee, legende, extension, pseudo)
+INSERT INTO "Photo"(titre, datepubliee, legende, chemin, pseudo)
 VALUES (:titre, :datepubliee, :legende, :extension, :pseudo);
 
 -- Supprimer une photo

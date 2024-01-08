@@ -9,3 +9,6 @@
 
 /photoz/app/jte-classes/
 photoz/app/bin
+/photoz/app/src/main/static/out.css
+/photoz/node_modules/
+/photoz/package-lock.json
