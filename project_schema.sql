@@ -41,7 +41,7 @@ create table "Photo"
     titre       varchar(255) not null,
     datepubliee date,
     legende     text,
-    extension   varchar(255) not null,
+    chemin   varchar(255) not null,
     -- TRUE : public        FALSE : private
     visible        BOOLEAN not null default true,
     pseudo      varchar(255) not null
