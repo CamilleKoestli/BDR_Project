@@ -1,4 +1,4 @@
-package photoz;
+package photoz.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
