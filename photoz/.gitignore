@@ -3,3 +3,19 @@
 
 # Ignore Gradle build output directory
 build
+
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+**/.idea/
+
+
+/app/jte-classes/
+/app/bin
+/app/src/main/static/out.css
+/node_modules/
+/package-lock.json
