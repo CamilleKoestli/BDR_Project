@@ -1,9 +1,9 @@
 package photoz.models;
 
 public class Utilisateur {
-    public String pseudo;
-    public String email;
-    public String motdepasse;
+    private String pseudo;
+    private String email;
+    private String motdepasse;
 
 
     public Utilisateur(String pseudo, String motdepasse, String email) {
@@ -12,4 +12,27 @@ public class Utilisateur {
         this.motdepasse = motdepasse;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMotdepasse() {
+        return motdepasse;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMotdepasse(String motdepasse) {
+        this.motdepasse = motdepasse;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
 }
