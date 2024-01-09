@@ -24,7 +24,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");
-        //initializeDatabase();
+        initializeDatabase();
         app = setupApp().start(PORT);
     }
 
