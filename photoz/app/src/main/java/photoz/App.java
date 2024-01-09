@@ -24,7 +24,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");
-        initializeDatabase();
+        //initializeDatabase();
         app = setupApp().start(PORT);
     }
 
@@ -49,8 +49,10 @@ public class App {
 
         // TODO: Defines routes
         PhotoController photoController = new PhotoController();
-        //app.get("/", photoController::home);
-        app.get("/", photoController::homeUser);
+        app.get("/", photoController::home);
+        //app.get("/", photoController::homeUser);
+
+        app.get("/photos/{id}", photoController::getPhotoDetails);
 
         return app;
     }

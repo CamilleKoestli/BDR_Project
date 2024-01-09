@@ -1,15 +1,17 @@
 package photoz.models;
 
-public class Photo {
-    private int id_photo;
-    private String titre;
-    private String datepubliee;
-    private String legende;
-    private String chemin;
-    private boolean visible;
-    private String artistePseudo;
+import java.util.Date;
 
-    public Photo(int id_photo, String titre, String datepubliee,String legende, String chemin, boolean visible, String artistePseudo) {
+public class Photo {
+    public int id_photo;
+    public String titre;
+    public Date datepubliee;
+    public String legende;
+    public String chemin;
+    public boolean visible;
+    public String artistePseudo;
+
+    public Photo(int id_photo, String titre, Date datepubliee,String legende, String chemin, boolean visible, String artistePseudo) {
         this.id_photo = id_photo;
         this.titre = titre;
         this.datepubliee = datepubliee;
@@ -17,5 +19,13 @@ public class Photo {
         this.chemin = chemin;
         this.visible = visible;
         this.artistePseudo = artistePseudo;
+    }
+
+    public Date getDatePubliee() {
+        return datepubliee;
+    }
+
+    public void setDatePubliee(Date datepubliee) {
+        this.datepubliee = datepubliee;
     }
 }
