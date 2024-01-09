@@ -86,10 +86,9 @@ create table "Dossier"
 (
     nom        varchar(255) not null,
     pseudo     varchar(255) not null
-        constraint "Dossier_pk"
-            unique
         references "Utilisateur",
-    id_dossier SERIAL PRIMARY KEY
+    id_dossier serial
+        primary key
 );
 
 --
@@ -97,16 +96,11 @@ create table "Dossier"
 --
 create table "Reaction"
 (
-    --TRUE : plus    FALSE : moins
-    plus_moins BOOLEAN not null,
+    plus_moins boolean      not null,
     id_photo   integer      not null
-        constraint "Reaction_pk2"
-            unique
         constraint "IDPhoto_fk"
             references "Photo",
     pseudo     varchar(255) not null
-        constraint "Reaction_pk"
-            unique
         references "Utilisateur",
     primary key (id_photo, pseudo)
 );
@@ -145,10 +139,6 @@ create table "TagPhoto"
 create table "DossierPhoto"
 (
     id_dossier integer not null
-        constraint "DossierPhoto_pk"
-            unique
-        constraint "IDDossier_fk"
-            unique
         constraint "DossierPhoto___fk"
             references "Dossier",
     id_photo   integer not null

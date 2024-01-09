@@ -8,7 +8,10 @@ INSERT INTO "Utilisateur" (pseudo, motdepasse, adressemail) VALUES ('tony24', '5
 
 -- Dossier
 INSERT INTO "Dossier" (id_dossier, nom, pseudo) VALUES (1, 'chien','john_doe');
-INSERT INTO "Dossier" (id_dossier, nom, pseudo) VALUES (2,'chat', 'jane_smith');
+INSERT INTO "Dossier" (id_dossier, nom, pseudo) VALUES (2,'cheval', 'jane_smith');
+INSERT INTO "Dossier" (id_dossier, nom, pseudo) VALUES (3, 'animaux','john_doe');
+INSERT INTO "Dossier" (id_dossier, nom, pseudo) VALUES (4, 'animaux','jane_smith');
+
 -- END
 
 -- Badge
@@ -22,11 +25,11 @@ INSERT INTO "BadgeUtilisateur" (id_badge, pseudo) VALUES (2, 'jane_smith');
 -- END
 
 -- Photo
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (1, 'DSC_0001', '12.01.2023', 'chien', 'jpg', true, 'john_doe');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (2, 'DSC_0002', '12.01.2023', 'chat', 'jpg', false, 'john_doe');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (3, 'DSC_0001', '04.17.2023', 'cheval', 'jpg', true, 'jane_smith');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (4, 'DSC_0002', '04.17.2023', 'chien', 'jpg', false, 'jane_smith');
-INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (5, 'DSC_0002', '12.01.2023', 'chien et chat', 'jpg', false, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (1, 'chien', '12.01.2023', 'chien', 'DSC_0001.jpg', true, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (2, 'chat', '12.01.2023', 'chat', 'DSC_0002.jpg', false, 'john_doe');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (3, 'cheval', '04.17.2023', 'cheval', 'DSC_0001.jpg', true, 'jane_smith');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (4, 'chien', '04.17.2023', 'chien', 'DSC_0002.jpg', false, 'jane_smith');
+INSERT INTO "Photo" (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (5, 'chien et chat', '12.01.2023', 'chien et chat', 'DSC_0003.jpg', false, 'john_doe');
 
 -- END
 
@@ -61,4 +64,31 @@ INSERT INTO "TagPhoto" (mot, id_photo) VALUES ('chat', 2);
 INSERT INTO "TagPhoto" (mot, id_photo) VALUES ('cheval', 3);
 INSERT INTO "TagPhoto" (mot, id_photo) VALUES ('chien', 5);
 INSERT INTO "TagPhoto" (mot, id_photo) VALUES ('chat', 5);
+-- END
+
+
+-- Reaction
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (true, 1, 'tony24');
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (false, 3, 'tony24');
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (true, 4, 'tony24');
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (true, 3, 'alfred10');
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (false, 2, 'alfred10');
+INSERT INTO "Reaction" (plus_moins, id_photo, pseudo ) VALUES (true, 5, 'alfred10');
+-- END
+
+-- Commentaire
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('joli chien', 'tony24', 1, 1);
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('pas beau', 'tony24', 3, 2);
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('joli chien', 'tony24', 4, 3);
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('joli cheval', 'alfred10', 3, 4);
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('pas joli', 'alfred10', 2, 5);
+INSERT INTO "Commentaire" (texte, pseudo, id_photo, id_comm) VALUES ('joli chien', 'alfred10', 5, 6);
+-- END
+
+-- Dossier Photo
+INSERT INTO "DossierPhoto" (id_dossier, id_photo) VALUES (1, 1);
+INSERT INTO "DossierPhoto" (id_dossier, id_photo) VALUES (3, 2);
+INSERT INTO "DossierPhoto" (id_dossier, id_photo) VALUES (2, 3);
+INSERT INTO "DossierPhoto" (id_dossier, id_photo) VALUES (4, 4);
+INSERT INTO "DossierPhoto" (id_dossier, id_photo) VALUES (3, 5);
 -- END
