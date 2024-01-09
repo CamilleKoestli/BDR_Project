@@ -1,16 +1,19 @@
 package photoz.models;
 
 public class Photo {
-    public int id;
-    public String title;
-    public String pseudo;
-    public String path;
+    private int id;
+    private String titre;
+    private String legende;
+    private String chemin;
+    private boolean visible;
+    private String artistePseudo;
 
-    public Photo( int id, String title, String pseudo, String path){
+    public Photo(int id, String titre, String legende, String chemin, boolean visible, String artistePseudo) {
         this.id = id;
-        this.title = title;
-        this.pseudo = pseudo;
-        this.path = path;
+        this.titre = titre;
+        this.legende = legende;
+        this.chemin = chemin;
+        this.visible = visible;
+        this.artistePseudo = artistePseudo;
     }
-
 }

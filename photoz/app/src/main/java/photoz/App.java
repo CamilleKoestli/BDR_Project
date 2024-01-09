@@ -4,6 +4,7 @@
 package photoz;
 
 import java.nio.file.Path;
+import java.sql.Connection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import gg.jte.resolve.DirectoryCodeResolver;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinJte;
+import photoz.database.PostgresConnection;
 import photoz.models.*;
 import photoz.controllers.*;
 
@@ -22,9 +24,21 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");
+        initializeDatabase();
         app = setupApp().start(PORT);
     }
 
+    private static void initializeDatabase() {
+        try {
+            Connection connection = PostgresConnection.getInstance().getConnection();
+            if (connection != null) {
+                System.out.println("Connexion à la base de données réussie.");
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la connexion à la base de données: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     // Separated method to easily test the server
     public static Javalin setupApp() {
         JavalinJte.init(createTemplateEngine());
@@ -35,7 +49,9 @@ public class App {
 
         // TODO: Defines routes
         PhotoController photoController = new PhotoController();
-        app.get("/", photoController::home);
+        //app.get("/", photoController::home);
+        app.get("/", photoController::homeUser);
+
         return app;
     }
 
