@@ -1,8 +1,8 @@
 @import photoz.models.Photo
-@import photoz.models.User
+@import photoz.models.Utilisateur
 @import java.util.ArrayList
 
-@param User loggedUser = null
+@param Utilisateur loggedUtilisateur = null
 @param ArrayList<Photo> photos
 
 	@template.layout(
@@ -14,5 +14,5 @@
 		@endfor
 	</div>
 	`,
-	loggedUser
+	loggedUtilisateur
 	)

@@ -1,9 +1,9 @@
 <!-- Part of the style come from Laravel Jetstream templates -->
-@import photoz.models.User
+@import photoz.models.Utilisateur
 @import gg.jte.Content
 
 @param Content content
-@param User loggedUser = null
+@param User loggedUtilisateur = null
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                @template.account(loggedUser)
+                @template.account(loggedUtilisateur)
             </div>
         </header>
         @endif

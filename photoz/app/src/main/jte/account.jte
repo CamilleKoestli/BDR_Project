@@ -1,10 +1,10 @@
-@import photoz.models.User
+@import photoz.models.Utilisateur
 
-@param User user
+@param Utilisateur utilisateur
 
 <div>
-	@if(user != null)
-	<div class="text-xl">${user.pseudo}</div>
+	@if(utilisateur != null)
+	<div class="text-xl">${utilisateur.pseudo}</div>
 	@else
 	<button>Login</button>
 	@endif
