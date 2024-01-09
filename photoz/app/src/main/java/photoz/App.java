@@ -39,6 +39,7 @@ public class App {
             e.printStackTrace();
         }
     }
+
     // Separated method to easily test the server
     public static Javalin setupApp() {
         JavalinJte.init(createTemplateEngine());
@@ -49,6 +50,12 @@ public class App {
 
         // TODO: Defines routes
         ConnexionController connexionController = new ConnexionController();
+        // Afficher la page de connexion/inscription
+        app.get("/login_signin", ctx -> ctx.render("connexion.jte"));
+
+        // Gérer la soumission du formulaire de connexion
+        app.post("/login_signin", ctx -> { });
+
         app.post("/utilisateur", connexionController::createUser);
         app.get("/utilisateur/{pseudo}", connexionController::getUser);
 

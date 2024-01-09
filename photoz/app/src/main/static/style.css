@@ -19,5 +19,5 @@ h4 {
 }
 
 button{
-	@apply bg-amber-50 border border-black rounded-md p-1
+	@apply bg-white border border-black rounded-md p-1
 }

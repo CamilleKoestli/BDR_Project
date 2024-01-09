@@ -33,7 +33,7 @@ public class PhotoController {
 		photos.add(new Photo(1, "NewYork", date,"Couché de soleil", "new-york.jpg", true, "Jeanno"));
 		photos.add(new Photo(2, "TimeLapse", date, "Timelapse sur ville", "timelapse.jpg", true, "Jeanno"));
 
-		ctx.render("photos.jte", Map.of("loggedUser",  new Utilisateur("Jeanno", "1234", "jean@gmail.com"), "photos", photos));
+		ctx.render("photos.jte", Map.of("loggedUser",  new Utilisateur("john_doe", "motdepasse1", "john.doe@example.com"), "photos", photos));
 	}
 
 	//Page accueil
