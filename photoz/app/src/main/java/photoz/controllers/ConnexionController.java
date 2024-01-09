@@ -26,9 +26,9 @@ public class ConnexionController {
         try (Connection conn = PostgresConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, utilisateur.getPseudo());
-            pstmt.setString(2, utilisateur.getMotdepasse());
-            pstmt.setString(3, utilisateur.getEmail());
+            pstmt.setString(1, utilisateur.pseudo);
+            pstmt.setString(2, utilisateur.motdepasse);
+            pstmt.setString(3, utilisateur.email);
             pstmt.executeUpdate();
             ctx.status(201).result("Utilisateur créé");
         } catch (SQLException e) {
