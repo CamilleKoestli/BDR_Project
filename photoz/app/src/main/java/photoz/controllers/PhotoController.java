@@ -8,6 +8,7 @@ import java.util.Map;
 
 import io.javalin.http.Context;
 
+
 public class PhotoController {
 	public void home(Context ctx) {
 		ArrayList<Photo> photos = new ArrayList<Photo>();
@@ -15,7 +16,7 @@ public class PhotoController {
 		photos.add(new Photo(1, "NewYork", "Jean", "new-york.jpg"));
 		photos.add(new Photo(2, "TimeLapse", "Jean", "timelapse.jpg"));
 
-		ctx.render("photos.jte", Map.of("loggedUser",  new User("Jean", "Koestli"), "photos", photos));
+		ctx.render("photos.jte", Map.of("loggedUser",  new User("Jeanno", "Jeanno@gmail.com", "1234"), "photos", photos));
 	}
 
 
