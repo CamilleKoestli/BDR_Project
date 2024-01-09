@@ -6,6 +6,6 @@
 	@if(utilisateur != null)
 	<div class="text-xl">${utilisateur.pseudo}</div>
 	@else
-	<button>Connexion/Inscription</button>
+		<a href="/login_signin"><button>Connexion/Inscription</button></a>
 	@endif
 </div>
