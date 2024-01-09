@@ -49,6 +49,8 @@ public class App {
         });
 
         // TODO: Defines routes
+
+        //Connexion
         ConnexionController connexionController = new ConnexionController();
         // Afficher la page de connexion/inscription
         app.get("/login_signin", ctx -> ctx.render("connexion.jte"));
@@ -59,10 +61,11 @@ public class App {
         app.post("/utilisateur", connexionController::createUser);
         app.get("/utilisateur/{pseudo}", connexionController::getUser);
 
-        PhotoController photoController = new PhotoController();
-        app.get("/", photoController::home);
-        //app.get("/", photoController::homeUser);
 
+        //Affichage photo
+        PhotoController photoController = new PhotoController();
+        //app.get("/", photoController::home);
+        app.get("/", photoController::homeUser);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         return app;
