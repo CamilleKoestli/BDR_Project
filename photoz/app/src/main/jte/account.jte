@@ -4,7 +4,7 @@
 
 <div>
 	@if(user != null)
-	<div class="text-xl">${user.firstname} ${user.lastname}</div>
+	<div class="text-xl">${user.pseudo}</div>
 	@else
 	<button>Login</button>
 	@endif
