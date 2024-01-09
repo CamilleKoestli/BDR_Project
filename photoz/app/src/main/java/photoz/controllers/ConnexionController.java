@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Date;
 
 public class ConnexionController {
+
     // Création d'un nouvel utilisateur
     public void createUser(Context ctx) {
         Utilisateur user = ctx.bodyAsClass(Utilisateur.class);
@@ -26,7 +27,7 @@ public class ConnexionController {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getPseudo());
-            pstmt.setString(2, user.getMotdepasse()); // Utiliser un hash du mot de passe
+            pstmt.setString(2, user.getMotdepasse());
             pstmt.setString(3, user.getEmail());
             pstmt.executeUpdate();
             ctx.status(201).result("Utilisateur créé");

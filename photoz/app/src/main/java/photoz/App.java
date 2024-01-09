@@ -48,6 +48,10 @@ public class App {
         });
 
         // TODO: Defines routes
+        ConnexionController connexionController = new ConnexionController();
+        app.post("/utilisateur", connexionController::createUser);
+        app.get("/utilisateur/{pseudo}", connexionController::getUser);
+
         PhotoController photoController = new PhotoController();
         app.get("/", photoController::home);
         //app.get("/", photoController::homeUser);
