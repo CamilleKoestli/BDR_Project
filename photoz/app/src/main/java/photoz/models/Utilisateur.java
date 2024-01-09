@@ -5,6 +5,7 @@ public class Utilisateur {
     private String email;
     private String motdepasse;
 
+    public Utilisateur(){};
 
     public Utilisateur(String pseudo, String motdepasse, String email) {
         this.pseudo = pseudo;
