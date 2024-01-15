@@ -10,14 +10,18 @@ import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinJte;
 import photoz.database.PostgresConnection;
 import photoz.controllers.*;
+import photoz.models.*;
 
 public class App {
     static final int PORT = 7000;
     static Javalin app;
+
+    public static Object testLoggedUtilisateur = null;
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");
@@ -51,19 +55,22 @@ public class App {
         ConnexionController connexionController = new ConnexionController();
         // Afficher la page de connexion/inscription
         app.get("/login_signin", ctx -> ctx.render("connexion.jte"));
-
         // Gérer la soumission du formulaire de connexion
         app.post("/login_signin", connexionController::loginUser);
 
 
-        app.post("/utilisateur", connexionController::createUser);
+        //app.post("/login_signin", connexionController::createUser);
         /*app.get("/utilisateur/{pseudo}", photoCOntroller::homeUser);*/
 
 
         //Affichage photo
         PhotoController photoController = new PhotoController();
+        // Page d'accueil
         app.get("/", photoController::homeUser);
-        app.get("/utilisateur/{pseudo}", photoController::home);
+
+        //quand tu clique sur le pseudo
+        app.get("/{pseudo}", ctx -> { } );
+        //app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         return app;
@@ -81,5 +88,17 @@ public class App {
             DirectoryCodeResolver codeResolver = new DirectoryCodeResolver(Path.of("src", "main", "jte"));
             return TemplateEngine.create(codeResolver, ContentType.Html);
         }
+    }
+
+    //TODO A CHANGER
+    public static Object loggedUser(Context ctx) {
+        if (testLoggedUtilisateur != null) {
+            return testLoggedUtilisateur;
+        }
+
+        Object possibleUtilisateur = ctx.req().getSession().getAttribute("utilisateur");
+        if (possibleUtilisateur == null)
+            return 1;
+        return (Utilisateur) possibleUtilisateur;
     }
 }

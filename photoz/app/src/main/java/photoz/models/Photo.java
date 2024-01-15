@@ -1,5 +1,10 @@
 package photoz.models;
 
+import photoz.database.Query;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Photo {
@@ -8,9 +13,10 @@ public class Photo {
     public Date datepubliee;
     public String legende;
     public String chemin;
-    public boolean visible;
+    public boolean visible; //true si la photo est visible par tous, false si elle est privée
     public String artistePseudo;
 
+    public Photo(){};
     public Photo(int id_photo, String titre, Date datepubliee,String legende, String chemin, boolean visible, String artistePseudo) {
         this.id_photo = id_photo;
         this.titre = titre;
@@ -20,12 +26,57 @@ public class Photo {
         this.visible = visible;
         this.artistePseudo = artistePseudo;
     }
-
-    public Date getDatePubliee() {
-        return datepubliee;
+    static ArrayList<Photo> all() throws SQLException {
+        ResultSet set = Query.query("SELECT * FROM photo");
+        return readPhotos(set);
     }
 
-    public void setDatePubliee(Date datepubliee) {
-        this.datepubliee = datepubliee;
+    static ArrayList<Photo> photoPublic() throws SQLException {
+        ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true");
+        return readPhotos(set);
+    }
+
+    public static ArrayList<Photo> photoUserCanSee() throws SQLException {
+        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE visible = true");
+        return readPhotos(set);
+    }
+
+    public static Photo find(int id_photo) throws SQLException {
+        ResultSet set = Query.query("SELECT * FROM photo WHERE id_photo = ?", new Object[] {id_photo});
+        ArrayList<Photo> photos = readPhotos(set);
+        if (!photos.isEmpty()){
+            return photos.getFirst();
+        }
+        return null;
+    }
+
+    public boolean create() throws SQLException {
+        return Query.update("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistePseudo}) == 1;
+    }
+
+    public boolean delete() throws SQLException {
+        return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistePseudo}) == 1;
+    }
+
+    private static ArrayList<Photo> readPhotos(ResultSet set) throws SQLException {
+        ArrayList<Photo> photos = null;
+        while(set.next()) {
+            photos.add(mapSetEntryToPhoto(set));
+        }
+        return photos;
+    }
+
+    private static Photo mapSetEntryToPhoto(ResultSet set) throws SQLException {
+        Photo p = new Photo();
+
+        p.id_photo = set.getInt("id_photo");
+        p.titre = set.getString("titre");
+        p.datepubliee = set.getDate("datepubliee");
+        p.legende = set.getString("legende");
+        p.chemin = set.getString("chemin");
+        p.visible = set.getBoolean("visible");
+        p.artistePseudo = set.getString("artistePseudo");
+
+        return p;
     }
 }

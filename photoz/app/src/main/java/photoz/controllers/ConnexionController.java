@@ -2,21 +2,11 @@ package photoz.controllers;
 
 
 import io.javalin.http.Context;
-
-import photoz.database.PostgresConnection;
 import photoz.models.Utilisateur;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnexionController {
-    private ConcurrentHashMap<Integer, Utilisateur> utilisateurs = new ConcurrentHashMap<>();
-
     // Création d'un nouvel utilisateur
     public void createUser(Context ctx) throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
@@ -39,7 +29,7 @@ public class ConnexionController {
             if (trouve != null && trouve.motdepasse.equals(password)) {
 
                 ctx.sessionAttribute("utilisateur", trouve);
-                ctx.redirect("/utilisateur/" + trouve.pseudo);
+                ctx.redirect("/" );
                 return;
             }
         }
