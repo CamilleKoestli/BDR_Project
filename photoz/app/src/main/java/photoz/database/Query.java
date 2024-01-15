@@ -19,6 +19,22 @@ public class Query {
         Connection conn = PostgresConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
+        assignParams(preparedStatement, params);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet;
+    }
+
+    public static int update(String sql, Object[] params) throws SQLException {
+        Connection conn = PostgresConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        assignParams(preparedStatement, params);
+
+        return preparedStatement.executeUpdate();
+    }
+
+    private static void assignParams(PreparedStatement preparedStatement, Object[] params) throws SQLException {
         for (Object param : params) {
             int cnt = 1;
             if (param instanceof String p) {
@@ -31,9 +47,5 @@ public class Query {
                 preparedStatement.setDouble(cnt++, p);
             }
         }
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        return resultSet;
     }
 }

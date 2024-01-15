@@ -35,7 +35,7 @@ public class Utilisateur {
         return readUtilisateurs(set);
     }
 
-    static Utilisateur find(String pseudo) throws SQLException {
+    public static Utilisateur find(String pseudo) throws SQLException {
         ResultSet set = Query.query("SELECT * FROM Utilisateur WHERE pseudo = ?", new Object[] {pseudo});
         ArrayList<Utilisateur> utilisateurs = readUtilisateurs(set);
         if (!utilisateurs.isEmpty()){
@@ -44,8 +44,8 @@ public class Utilisateur {
         return null;
     }
 
-    void create() throws SQLException {
-        ResultSet set = Query.query("INSERT INTO Utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)", new Object[] {pseudo, motdepasse, email});
+    public boolean create() throws SQLException {
+        return Query.update("INSERT INTO Utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)", new Object[] {pseudo, motdepasse, email}) == 1;
     }
 
     private static ArrayList<Utilisateur> readUtilisateurs(ResultSet set) throws SQLException {

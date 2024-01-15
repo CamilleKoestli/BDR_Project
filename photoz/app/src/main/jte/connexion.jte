@@ -1,5 +1,6 @@
 @import photoz.models.Utilisateur
 @param Utilisateur loggedUtilisateur = null
+@param String error = null
 
 
 @template.layout(
@@ -17,6 +18,9 @@ content = @`
             <input type="password" id="login-password" name="password" required>
         </div>
         <button type="submit">Se connecter</button>
+        @if(error != null)
+            <p class="error">${error}</p>
+        @endif
     </form>
 </div>
 

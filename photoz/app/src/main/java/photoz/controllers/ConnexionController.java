@@ -11,69 +11,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnexionController {
     private ConcurrentHashMap<Integer, Utilisateur> utilisateurs = new ConcurrentHashMap<>();
 
     // Création d'un nouvel utilisateur
-    public void createUser(Context ctx) {
+    public void createUser(Context ctx) throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.pseudo = ctx.formParam("pseudo");
         utilisateur.motdepasse = ctx.formParam("motdepasse");
         utilisateur.email = ctx.formParam("email");
 
-        String sql = "INSERT INTO Utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)";
+        utilisateur.create();
+        ctx.status(201).result("Utilisateur créé");
 
-        try (Connection conn = PostgresConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, utilisateur.pseudo);
-            pstmt.setString(2, utilisateur.motdepasse);
-            pstmt.setString(3, utilisateur.email);
-            pstmt.executeUpdate();
-            ctx.status(201).result("Utilisateur créé");
-        } catch (SQLException e) {
-            ctx.status(500).result("Erreur serveur: " + e.getMessage());
-        }
     }
 
     // Lecture des informations d'un utilisateur
-    public void loginUser(Context ctx) {
+    public void loginUser(Context ctx) throws SQLException {
         String pseudo = ctx.formParam("pseudo");
         String password = ctx.formParam("password");
-        String sql = "SELECT * FROM Utilisateur WHERE pseudo = ?";
 
-        try (Connection connection = PostgresConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        if (pseudo == null || password == null) {
+            Utilisateur trouve = Utilisateur.find(pseudo);
+            if (trouve != null && trouve.motdepasse.equals(password)) {
 
-            preparedStatement.setString(1, pseudo);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String hashedPasswordFromDatabase = resultSet.getString("motdepasse");
-
-                if (verifierMotDePasse(password, hashedPasswordFromDatabase)) {
-                    Utilisateur utilisateur = new Utilisateur(
-                            resultSet.getString("pseudo"),
-                            resultSet.getString("email"),
-                            resultSet.getString("motdepasse")
-                    );
-                    ctx.sessionAttribute("pseudo", pseudo);
-                    ctx.redirect("/utilisateur/" + utilisateur.pseudo);
-                } else {
-                    ctx.status(401).result("Mot de passe incorrect");
-                }
-            } else {
-                ctx.status(404).result("Utilisateur non trouvé");
+                ctx.sessionAttribute("utilisateur", trouve);
+                ctx.redirect("/utilisateur/" + trouve.pseudo);
+                return;
             }
-        } catch (SQLException e) {
-            ctx.status(500).result("Erreur serveur: " + e.getMessage());
         }
-    }
-
-    private boolean verifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
-        return motDePasseSoumis.equals(motDePasseBaseDeDonnées);
+        ctx.render("connexion.jte", Map.of("error", "Pseudo ou mot de passe incorrect"));
     }
 }
 
