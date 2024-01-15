@@ -1,7 +1,6 @@
 package photoz.controllers;
 
 
-
 import io.javalin.http.Context;
 
 import photoz.database.PostgresConnection;
@@ -14,8 +13,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import java.util.Date;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnexionController {
+    private ConcurrentHashMap<Integer, Utilisateur> utilisateurs = new ConcurrentHashMap<>();
 
     // Création d'un nouvel utilisateur
     public void createUser(Context ctx) {
@@ -39,20 +40,28 @@ public class ConnexionController {
     // Lecture des informations d'un utilisateur
     public void getUser(Context ctx) {
         String pseudo = ctx.pathParam("pseudo");
+        String password = ctx.formParam("password");
         String sql = "SELECT * FROM Utilisateur WHERE pseudo = ?";
 
-        try (Connection conn = PostgresConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection connection = PostgresConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1, pseudo);
-            ResultSet rs = pstmt.executeQuery();
+            preparedStatement.setString(1, pseudo);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (rs.next()) {
-                Utilisateur utilisateur = new Utilisateur();
-                utilisateur.setPseudo(rs.getString("pseudo"));
-                utilisateur.setEmail(rs.getString("email"));
-                // Ne pas renvoyer le mot de passe
-                ctx.json(utilisateur);
+            if (resultSet.next()) {
+                String hashedPasswordFromDatabase = resultSet.getString("motdepasse");
+
+                if (vérifierMotDePasse(password, hashedPasswordFromDatabase)) {
+                    Utilisateur utilisateur = new Utilisateur(
+                            resultSet.getString("pseudo"),
+                            resultSet.getString("email"),
+                            resultSet.getString("motdepasse")
+                    );
+                    ctx.redirect("/utilisateur/{pseudo}");
+                } else {
+                    ctx.status(401).result("Mot de passe incorrect");
+                }
             } else {
                 ctx.status(404).result("Utilisateur non trouvé");
             }
@@ -60,4 +69,14 @@ public class ConnexionController {
             ctx.status(500).result("Erreur serveur: " + e.getMessage());
         }
     }
+
+    private boolean vérifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
+        if (motDePasseSoumis.equals(motDePasseBaseDeDonnées)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+
