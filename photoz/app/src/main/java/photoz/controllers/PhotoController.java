@@ -30,8 +30,8 @@ public class PhotoController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = formatter.parse("2024-01-10");
 
-		photos.add(new Photo(1, "NewYork", date,"Couché de soleil", "new-york.jpg", true, "Jeanno"));
-		photos.add(new Photo(2, "TimeLapse", date, "Timelapse sur ville", "timelapse.jpg", true, "Jeanno"));
+		photos.add(new Photo(1, "Chien", date,"Couché de soleil", "DSC_0001.jpg", true, "Jeanno"));
+		photos.add(new Photo(2, "Chat", date, "Timelapse sur ville", "DSC_0002.jpg", true, "Jeanno"));
 
 		ctx.render("photos.jte", Map.of("loggedUser",  new Utilisateur("john_doe", "motdepasse1", "john.doe@example.com"), "photos", photos));
 	}
