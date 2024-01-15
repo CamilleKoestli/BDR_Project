@@ -5,8 +5,6 @@ package photoz;
 
 import java.nio.file.Path;
 import java.sql.Connection;
-import java.util.Collections;
-import java.util.Map;
 
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
@@ -15,8 +13,8 @@ import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinJte;
 import photoz.database.PostgresConnection;
-import photoz.models.*;
 import photoz.controllers.*;
+import photoz.models.Utilisateur;
 
 public class App {
     static final int PORT = 7000;
@@ -56,16 +54,16 @@ public class App {
         app.get("/login_signin", ctx -> ctx.render("connexion.jte"));
 
         // Gérer la soumission du formulaire de connexion
-        app.post("/login_signin", ctx -> { });
+        app.post("/utilisateur/${loggedUtilisateur.pseudo}", connexionController::loginUser);
 
         app.post("/utilisateur", connexionController::createUser);
-        app.get("/utilisateur/{pseudo}", connexionController::getUser);
+        app.get("/utilisateur/{pseudo}", connexionController::loginUser);
 
 
         //Affichage photo
         PhotoController photoController = new PhotoController();
-        //app.get("/", photoController::home);
-        app.get("/", photoController::homeUser);
+        app.get("/", photoController::home);
+        //app.get("/", photoController::homeUser);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         return app;

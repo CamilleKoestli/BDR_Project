@@ -10,9 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnexionController {
@@ -38,7 +37,7 @@ public class ConnexionController {
     }
 
     // Lecture des informations d'un utilisateur
-    public void getUser(Context ctx) {
+    public void loginUser(Context ctx) {
         String pseudo = ctx.pathParam("pseudo");
         String password = ctx.formParam("password");
         String sql = "SELECT * FROM Utilisateur WHERE pseudo = ?";
@@ -58,7 +57,8 @@ public class ConnexionController {
                             resultSet.getString("email"),
                             resultSet.getString("motdepasse")
                     );
-                    ctx.redirect("/utilisateur/{pseudo}");
+                    ctx.json(utilisateur);
+                    //ctx.render("connexion.jte", Map.of("loggedUtilisateur", utilisateur));
                 } else {
                     ctx.status(401).result("Mot de passe incorrect");
                 }
@@ -69,6 +69,8 @@ public class ConnexionController {
             ctx.status(500).result("Erreur serveur: " + e.getMessage());
         }
     }
+
+
 
     private boolean vérifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
         if (motDePasseSoumis.equals(motDePasseBaseDeDonnées)) {

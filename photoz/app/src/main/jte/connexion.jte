@@ -7,7 +7,7 @@ content = @`
 <!-- Section Connexion -->
 <div class="login-section">
     <h1>Connexion</h1>
-    <form action="/login_sign" method="post">
+    <form action="/utilisateur/${loggedUtilisateur.pseudo}" method="post">
         <div class="form-group">
             <label for="login-pseudo">Pseudo</label>
             <input type="text" id="login-pseudo" name="pseudo" required>
