@@ -1,6 +1,7 @@
 --
 -- Views
 --
+set search_path=project_schema;
 
 -- Accès aux photos en fonction des abonnements et des suiveurs
 CREATE OR REPLACE VIEW view_photo_follow_subscription AS
@@ -10,11 +11,11 @@ SELECT p.id_photo,
        p.legende,
        p.pseudo AS artiste_pseudo,
        s.pseudo  AS utilisateur_pseudo
-FROM "Photo" p
+FROM photo p
          INNER JOIN
-     "Statut" s ON p.pseudo = s."pseudoArt"
+     statut s ON p.pseudo = s.pseudoart
          INNER JOIN
-     "Utilisateur" u ON s.pseudo = u.pseudo
+     utilisateur u ON s.pseudo = u.pseudo
 WHERE s.accepte_refus = TRUE;
 --
 
@@ -27,9 +28,9 @@ SELECT p.id_photo,
        p.chemin,
        p.pseudo AS artiste_pseudo,
        tp.mot   AS tag
-FROM "Photo" p
+FROM photo p
          INNER JOIN
-     "TagPhoto" tp ON p.id_photo = tp.id_photo
+     tagphoto tp ON p.id_photo = tp.id_photo
          INNER JOIN
-     "Tag" t ON tp.mot = t.mot;
+     tag t ON tp.mot = t.mot;
 --

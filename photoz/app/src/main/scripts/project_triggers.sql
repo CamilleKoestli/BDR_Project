@@ -2,6 +2,8 @@
 -- Triggers
 --
 
+SET search_path = project_schema;
+
 -- Mise à jour des badges en fonction des différentes actions
 -- Trigger première photo postée
 CREATE
@@ -10,10 +12,10 @@ CREATE
     RETURNS TRIGGER AS
 $$
 BEGIN
-    INSERT INTO "BadgeUtilisateur" (id_badge, pseudo)
+    INSERT INTO badgeutilisateur (id_badge, pseudo)
     SELECT 1, NEW.pseudo
     WHERE NOT EXISTS (SELECT 1
-                      FROM "BadgeUtilisateur" BU
+                      FROM badgeutilisateur BU
                       WHERE BU.pseudo = NEW.pseudo);
     RETURN NEW;
 END;
@@ -21,7 +23,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_badge_premiere_photo
     AFTER INSERT
-    ON "Photo"
+    ON photo
     FOR EACH ROW
 EXECUTE FUNCTION badge_premiere_photo();
 --

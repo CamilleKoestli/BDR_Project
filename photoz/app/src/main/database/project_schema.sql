@@ -6,7 +6,7 @@ SET search_path = project_schema;
 --
 -- Table `utilisateur`
 --
-create table "Utilisateur"
+create table utilisateur
 (
     pseudo      varchar(255) not null
         unique primary key,
@@ -16,9 +16,9 @@ create table "Utilisateur"
 
 
 --
--- Table `Statut`
+-- Table `statut`
 --
-create table "Statut"
+create table statut
 (
     --TRUE : suiveur    FALSE : abonnement
     typedemande   BOOLEAN not null,
@@ -26,16 +26,16 @@ create table "Statut"
     accepte_refus BOOLEAN,
     pseudo        varchar(255) not null
         constraint "Pseudo_fk"
-            references "Utilisateur",
-    "pseudoArt"   varchar(255) not null
-        constraint "PseudoArt_fk"
-            references "Utilisateur"
+            references utilisateur,
+    pseudoart   varchar(255) not null
+        constraint "pseudoart_fk"
+            references utilisateur
 );
 
 --
 -- Table `photo`
 --
-create table "Photo"
+create table photo
 (
     id_photo SERIAL PRIMARY KEY,
     titre       varchar(255) not null,
@@ -45,48 +45,48 @@ create table "Photo"
     -- TRUE : public        FALSE : private
     visible        BOOLEAN not null default true,
     pseudo      varchar(255) not null
-        constraint "PseudoArt_fk"
-            references "Utilisateur"
+        constraint "pseudoart_fk"
+            references utilisateur
 );
 
 
 --
 -- Table `commentaire`
 --
-create table "Commentaire"
+create table commentaire
 (
     id_comm SERIAL PRIMARY KEY,
     texte    text,
     pseudo   varchar(255) not null
         constraint "Pseudo_fk"
-            references "Utilisateur",
+            references utilisateur,
     id_photo integer
         constraint "IDPhoto_fk"
-            references "Photo"
+            references photo
 );
 
 
 --
 -- Table `tag`
 --
-create table "Tag"
+create table tag
 (
     pseudo varchar(255) not null
-        constraint "PseudoArt_fk"
-            references "Utilisateur",
+        constraint "pseudoart_fk"
+            references utilisateur,
     mot    varchar      not null
-        constraint "Tag_pk"
+        constraint "tag_pk"
             primary key
 );
 
 --
 -- Table `dossier`
 --
-create table "Dossier"
+create table dossier
 (
     nom        varchar(255) not null,
     pseudo     varchar(255) not null
-        references "Utilisateur",
+        references utilisateur,
     id_dossier serial
         primary key
 );
@@ -94,83 +94,83 @@ create table "Dossier"
 --
 -- Table `réaction`
 --
-create table "Reaction"
+create table reaction
 (
     plus_moins boolean      not null,
     id_photo   integer      not null
         constraint "IDPhoto_fk"
-            references "Photo",
+            references photo,
     pseudo     varchar(255) not null
-        references "Utilisateur",
+        references utilisateur,
     primary key (id_photo, pseudo)
 );
 
 --
 -- Table `tag utilisateur`
 --
-create table "TagUtilisateur"
+create table tagutilisateur
 (
     pseudo varchar(255) not null
         constraint "Pseudo_fk"
-            references "Utilisateur",
+            references utilisateur,
     mot    varchar(255) not null
-        constraint "Mot_fk"
-            references "Tag",
+        constraint "mot_fk"
+            references tag,
     primary key (pseudo, mot)
 );
 
 --
 -- Table `tag photo`
 --
-create table "TagPhoto"
+create table tagPhoto
 (
     mot      varchar(255) not null
-        constraint "Mot_fk"
-            references "Tag",
+        constraint "mot_fk"
+            references tag,
     id_photo integer      not null
         constraint "IDPhoto_fk"
-            references "Photo",
+            references photo,
     primary key (mot, id_photo)
 );
 
 --
 -- Table `dossier photo`
 --
-create table "DossierPhoto"
+create table dossierphoto
 (
     id_dossier integer not null
-        constraint "DossierPhoto___fk"
-            references "Dossier",
+        constraint "dossierphoto___fk"
+            references dossier,
     id_photo   integer not null
         constraint "IDPhoto_fk"
-            references "Photo",
+            references photo,
     primary key (id_photo, id_dossier)
 );
 
 --
--- Table `Badge`
+-- Table `badge`
 --
-create table "Badge"
+create table badge
 (
     nom         varchar(255),
     description varchar(255),
     id_badge    integer not null
-        constraint "Badge_pk"
+        constraint "badge_pk"
             primary key
 );
 
 --
--- Table `BadgeUtilisateur`
+-- Table `badgeutilisateur`
 --
-create table "BadgeUtilisateur"
+create table badgeutilisateur
 (
     id_badge integer      not null
-        constraint "BadgeUtilisateur_Badge_id_badge_fk"
-            references "Badge",
+        constraint "badgeutilisateur_badge_id_badge_fk"
+            references badge,
     pseudo   varchar(255) not null
-        constraint "BadgeUtilisateur_Utilisateur_pseudo_fk"
-            references "Utilisateur",
-    constraint "BadgeUtilisateur_pk"
+        constraint "badgeutilisateur_utilisateur_pseudo_fk"
+            references utilisateur,
+    constraint "badgeutilisateur_pk"
         primary key (id_badge, pseudo)
 );
 
