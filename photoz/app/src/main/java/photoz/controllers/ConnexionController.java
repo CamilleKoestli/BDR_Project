@@ -10,9 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnexionController {
@@ -20,8 +18,11 @@ public class ConnexionController {
 
     // Création d'un nouvel utilisateur
     public void createUser(Context ctx) {
-        Utilisateur utilisateur = ctx.bodyAsClass(Utilisateur.class);
-        // Hasher le mot de passe ici avant de l'insérer
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.pseudo= ctx.formParam("pseudo");
+        utilisateur.motdepasse = ctx.formParam("motdepasse");
+        utilisateur.email = ctx.formParam( "email");
+
         String sql = "INSERT INTO Utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)";
 
         try (Connection conn = PostgresConnection.getInstance().getConnection();
@@ -38,8 +39,8 @@ public class ConnexionController {
     }
 
     // Lecture des informations d'un utilisateur
-    public void getUser(Context ctx) {
-        String pseudo = ctx.pathParam("pseudo");
+    public void loginUser(Context ctx) {
+        String pseudo = ctx.formParam("pseudo");
         String password = ctx.formParam("password");
         String sql = "SELECT * FROM Utilisateur WHERE pseudo = ?";
 
@@ -52,13 +53,13 @@ public class ConnexionController {
             if (resultSet.next()) {
                 String hashedPasswordFromDatabase = resultSet.getString("motdepasse");
 
-                if (vérifierMotDePasse(password, hashedPasswordFromDatabase)) {
+                if (verifierMotDePasse(password, hashedPasswordFromDatabase)) {
                     Utilisateur utilisateur = new Utilisateur(
                             resultSet.getString("pseudo"),
                             resultSet.getString("email"),
                             resultSet.getString("motdepasse")
                     );
-                    ctx.redirect("/utilisateur/{pseudo}");
+                    ctx.redirect("/utilisateur/" + utilisateur.pseudo);
                 } else {
                     ctx.status(401).result("Mot de passe incorrect");
                 }
@@ -70,12 +71,8 @@ public class ConnexionController {
         }
     }
 
-    private boolean vérifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
-        if (motDePasseSoumis.equals(motDePasseBaseDeDonnées)) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean verifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
+        return motDePasseSoumis.equals(motDePasseBaseDeDonnées);
     }
 }
 

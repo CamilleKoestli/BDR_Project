@@ -2,6 +2,7 @@ package photoz.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class PostgresConnection {
@@ -40,6 +41,11 @@ public class PostgresConnection {
         return instance;
     }
 
+    private PreparedStatement Query(String sql) throws SQLException {
+        Connection conn = PostgresConnection.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        return pstmt;
+    }
 
     public Connection getConnection() {
         return connection;
