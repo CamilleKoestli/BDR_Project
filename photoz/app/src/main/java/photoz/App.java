@@ -63,7 +63,7 @@ public class App {
         //Affichage photo
         PhotoController photoController = new PhotoController();
         app.get("/", photoController::homeUser);
-        app.get("/utilisateur/{pseudo}", photoController::homeUser);
+        app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         return app;

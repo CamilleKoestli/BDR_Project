@@ -19,9 +19,9 @@ public class ConnexionController {
     // Création d'un nouvel utilisateur
     public void createUser(Context ctx) {
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.pseudo= ctx.formParam("pseudo");
+        utilisateur.pseudo = ctx.formParam("pseudo");
         utilisateur.motdepasse = ctx.formParam("motdepasse");
-        utilisateur.email = ctx.formParam( "email");
+        utilisateur.email = ctx.formParam("email");
 
         String sql = "INSERT INTO Utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)";
 
@@ -59,6 +59,7 @@ public class ConnexionController {
                             resultSet.getString("email"),
                             resultSet.getString("motdepasse")
                     );
+                    ctx.sessionAttribute("pseudo", pseudo);
                     ctx.redirect("/utilisateur/" + utilisateur.pseudo);
                 } else {
                     ctx.status(401).result("Mot de passe incorrect");
@@ -74,7 +75,6 @@ public class ConnexionController {
     private boolean verifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
         return motDePasseSoumis.equals(motDePasseBaseDeDonnées);
     }
-
 }
 
 

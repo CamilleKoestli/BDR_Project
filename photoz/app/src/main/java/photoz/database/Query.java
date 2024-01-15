@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Query {
 
-    static ResultSet query(String sql) throws SQLException {
+    public static ResultSet query(String sql) throws SQLException {
         Connection conn = PostgresConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -15,7 +15,7 @@ public class Query {
         return resultSet;
     }
 
-    public ResultSet query(String sql, Object[] params) throws SQLException {
+    public static ResultSet query(String sql, Object[] params) throws SQLException {
         Connection conn = PostgresConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
