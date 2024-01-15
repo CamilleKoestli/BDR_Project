@@ -73,6 +73,19 @@ public class App {
         //app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
+        // Gestion de l'exception, fait par Samuel Roland
+        app.exception(Exception.class, (e, ctx) -> {
+            String msg = "<div style='font-family: monospace; font-size: 1.5em;'><h1>Java exception</h1>";
+            msg += "\n<h2>" + e.toString() + "</h2>\n";
+            for (var element : e.getStackTrace()) {
+                boolean bold = element.getClassName().startsWith("photoz");
+                msg += "<br>" + (bold ? ("<strong>" + element + "</strong>") : element);
+            }
+            msg += "</div>";
+            ctx.html(msg);
+            ctx.status(500);
+        });
+
         return app;
     }
 
