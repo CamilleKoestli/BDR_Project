@@ -74,6 +74,7 @@ public class ConnexionController {
     private boolean verifierMotDePasse(String motDePasseSoumis, String motDePasseBaseDeDonnées) {
         return motDePasseSoumis.equals(motDePasseBaseDeDonnées);
     }
+
 }
 
 
