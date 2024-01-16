@@ -59,7 +59,7 @@ public class Photo {
     }
 
     private static ArrayList<Photo> readPhotos(ResultSet set) throws SQLException {
-        ArrayList<Photo> photos = null;
+        ArrayList<Photo> photos = new ArrayList<>();
         while(set.next()) {
             photos.add(mapSetEntryToPhoto(set));
         }
