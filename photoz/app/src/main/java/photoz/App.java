@@ -66,7 +66,7 @@ public class App {
         //Affichage photo
         PhotoController photoController = new PhotoController();
         // Page d'accueil
-        app.get("/", photoController::homeUser);
+        app.get("/", photoController::home);
 
         //quand tu clique sur le pseudo
         app.get("/{pseudo}", ctx -> { } );

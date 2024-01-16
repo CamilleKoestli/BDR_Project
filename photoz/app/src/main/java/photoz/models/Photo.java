@@ -31,13 +31,13 @@ public class Photo {
         return readPhotos(set);
     }
 
-    static ArrayList<Photo> photoPublic() throws SQLException {
+    public ArrayList<Photo> photoPublic() throws SQLException {
         ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true AND photo.pseudo = ?", new Object[] {artistepseudo});
         return readPhotos(set);
     }
 
     public static ArrayList<Photo> photoUserCanSee() throws SQLException {
-        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE visible = true");
+        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription");
         return readPhotos(set);
     }
 
