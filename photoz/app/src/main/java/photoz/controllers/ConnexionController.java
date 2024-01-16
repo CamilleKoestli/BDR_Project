@@ -27,11 +27,11 @@ public class ConnexionController {
         if (pseudo == null || password == null) {
             Utilisateur trouve = Utilisateur.find(pseudo);
             if (trouve != null && trouve.motdepasse.equals(password)) {
-
                 ctx.sessionAttribute("utilisateur", trouve);
-                ctx.redirect("/" );
+                ctx.redirect("/user" );
                 return;
             }
+            ctx.render("Connexion échouée");
         }
         ctx.render("connexion.jte", Map.of("error", "Pseudo ou mot de passe incorrect"));
     }

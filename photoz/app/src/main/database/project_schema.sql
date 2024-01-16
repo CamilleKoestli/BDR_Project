@@ -11,7 +11,7 @@ create table utilisateur
     pseudo      varchar(255) not null
         unique primary key,
     motdepasse  varchar(255) not null,
-    adressemail varchar(255) not null
+    email varchar(255) not null
 );
 
 

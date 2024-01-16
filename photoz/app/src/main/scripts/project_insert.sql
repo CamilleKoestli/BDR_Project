@@ -2,10 +2,10 @@ set search_path=project_schema;
 
 -- UTILISATEURS
 -- Insérer le premier utilisateur
-INSERT INTO utilisateur (pseudo, motdepasse, adressemail) VALUES ('john_doe', '123', 'john.doe@example.com');
-INSERT INTO utilisateur (pseudo, motdepasse, adressemail) VALUES ('jane_smith', '321', 'jane.smith@example.com');
-INSERT INTO utilisateur (pseudo, motdepasse, adressemail) VALUES ('alfred10', '1234', 'alfred10@example.com');
-INSERT INTO utilisateur (pseudo, motdepasse, adressemail) VALUES ('tony24', '5678', 'tony24@example.com');
+INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES ('john_doe', '123', 'john.doe@example.com');
+INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES ('jane_smith', '321', 'jane.smith@example.com');
+INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES ('alfred10', '1234', 'alfred10@example.com');
+INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES ('tony24', '5678', 'tony24@example.com');
 -- END
 
 -- dossier

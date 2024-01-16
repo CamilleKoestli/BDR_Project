@@ -12,6 +12,7 @@ import gg.jte.resolve.DirectoryCodeResolver;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
+import io.javalin.plugin.bundled.DevLoggingPlugin;
 import io.javalin.rendering.template.JavalinJte;
 import photoz.database.PostgresConnection;
 import photoz.controllers.*;
@@ -47,6 +48,8 @@ public class App {
 
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("src/main/static", Location.EXTERNAL);
+            config.plugins.enableDevLogging();
+            //config.plugins.register(new DevLoggingPlugin());
         });
 
         // TODO: Defines routes
@@ -59,17 +62,14 @@ public class App {
         app.post("/login_signin", connexionController::loginUser);
 
 
-        //app.post("/login_signin", connexionController::createUser);
-        /*app.get("/utilisateur/{pseudo}", photoCOntroller::homeUser);*/
-
-
         //Affichage photo
         PhotoController photoController = new PhotoController();
         // Page d'accueil
         app.get("/", photoController::home);
 
         //quand tu clique sur le pseudo
-        app.get("/{pseudo}", ctx -> { } );
+        app.get("/user", photoController::homeUser );
+
         //app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
@@ -103,7 +103,6 @@ public class App {
         }
     }
 
-    //TODO A CHANGER
     public static Object loggedUser(Context ctx) {
         if (testLoggedUtilisateur != null) {
             return testLoggedUtilisateur;

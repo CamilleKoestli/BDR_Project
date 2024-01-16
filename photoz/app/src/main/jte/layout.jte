@@ -25,7 +25,7 @@
             <div class="flex-1 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center">
                 <!-- Logo Image -->
                 <div class="logo mr-6">
-                    <img src="photoz/app/src/main/static/logo_photoz.png" width="50" height="auto">
+                    <img src="logo_photoz.png" width="50" height="auto">
                 </div>
                 @template.menu()
             </div>
