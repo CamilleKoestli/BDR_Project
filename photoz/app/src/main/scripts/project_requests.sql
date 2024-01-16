@@ -123,10 +123,28 @@ FROM utilisateur U
 INNER JOIN photo P ON U.pseudo = P.pseudo;
 --
 
+-- Consulter les photos publiques et privées de tout le monde
+SELECT *
+FROM photo
+--
+
+-- Consulter les photos publiques de tout le monde
+SELECT *
+FROM photo
+WHERE visible = true
+--
+
 -- Consulter les photos publiques et privées d’un artiste
 SELECT *
 FROM photo
 WHERE photo.pseudo = :pseudo;
+--
+
+-- Consulter les photos publiques d'un artiste
+SELECT *
+FROM photo
+WHERE visible = true
+    AND photo.pseudo = :pseudo;
 --
 
 -- Accepter ou refuser une demande d’abonnement

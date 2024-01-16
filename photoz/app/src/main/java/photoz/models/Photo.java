@@ -14,7 +14,7 @@ public class Photo {
     public String legende;
     public String chemin;
     public boolean visible; //true si la photo est visible par tous, false si elle est privée
-    public String artistePseudo;
+    public String artistepseudo;
 
     public Photo(){};
     public Photo(int id_photo, String titre, Date datepubliee,String legende, String chemin, boolean visible, String artistePseudo) {
@@ -24,7 +24,7 @@ public class Photo {
         this.legende = legende;
         this.chemin = chemin;
         this.visible = visible;
-        this.artistePseudo = artistePseudo;
+        this.artistepseudo = artistePseudo;
     }
     static ArrayList<Photo> all() throws SQLException {
         ResultSet set = Query.query("SELECT * FROM photo");
@@ -32,7 +32,7 @@ public class Photo {
     }
 
     static ArrayList<Photo> photoPublic() throws SQLException {
-        ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true");
+        ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true AND photo.pseudo = ?", new Object[] {artistepseudo});
         return readPhotos(set);
     }
 
@@ -51,11 +51,11 @@ public class Photo {
     }
 
     public boolean create() throws SQLException {
-        return Query.update("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistePseudo}) == 1;
+        return Query.update("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistepseudo}) == 1;
     }
 
     public boolean delete() throws SQLException {
-        return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistePseudo}) == 1;
+        return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistepseudo}) == 1;
     }
 
     private static ArrayList<Photo> readPhotos(ResultSet set) throws SQLException {
@@ -75,7 +75,7 @@ public class Photo {
         p.legende = set.getString("legende");
         p.chemin = set.getString("chemin");
         p.visible = set.getBoolean("visible");
-        p.artistePseudo = set.getString("artistePseudo");
+        p.artistepseudo = set.getString("artistepseudo");
 
         return p;
     }
