@@ -2,8 +2,8 @@
 -- Views
 --
 set search_path=project_schema;
-DROP view view_photo_follow_subscription;
-DROP view view_photo_tag;
+DROP view if exists view_photo_follow_subscription;
+DROP view if exists view_photo_tag;
 
 -- Accès aux photos en fonction des abonnements et des suiveurs
 CREATE OR REPLACE VIEW view_photo_follow_subscription AS

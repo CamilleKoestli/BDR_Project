@@ -68,7 +68,7 @@ public class App {
         app.get("/login_signin", ctx -> ctx.render("connexion.jte"));
         // Gérer la soumission du formulaire de connexion
         app.post("/login_signin", connexionController::loginUser);
-
+        // Logout
         app.get("/logout", connexionController::logoutUser);
 
 
@@ -76,7 +76,7 @@ public class App {
         PhotoController photoController = new PhotoController();
         // Page d'accueil
         app.get("/", photoController::homeUser );
-
+        // Page de détails d'une photo
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         // Gestion de l'exception, fait par Samuel Roland

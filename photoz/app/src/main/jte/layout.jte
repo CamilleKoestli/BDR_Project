@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>photoz</title>
-    <link rel="stylesheet" href="out.css">
+    <link rel="stylesheet" href="/out.css">
 </head>
 
 <body class="font-sans antialiased">
@@ -25,7 +25,7 @@
             <div class="flex-1 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center">
                 <!-- Logo Image -->
                 <div class="logo mr-6">
-                    <img src="logo_photoz.png" width="50" height="auto">
+                    <img src="/logo_photoz.png" width="50" height="auto">
                 </div>
                 @template.menu()
             </div>

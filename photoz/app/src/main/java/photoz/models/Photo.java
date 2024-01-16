@@ -36,9 +36,9 @@ public class Photo {
         return readPhotos(set);
     }
 
-    public static ArrayList<Photo> photoUserCanSee() throws SQLException {
-        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription");
-        return readPhotos(set);
+    public static ArrayList<Photo> photoUserCanSee(String pseudo) throws SQLException {
+        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE utilisateurpseudo = ?", new Object[] {pseudo});
+        return readPhotosView(set);
     }
 
     public static Photo find(int id_photo) throws SQLException {
@@ -65,8 +65,28 @@ public class Photo {
         }
         return photos;
     }
+    private static ArrayList<Photo> readPhotosView(ResultSet set) throws SQLException {
+        ArrayList<Photo> photos = new ArrayList<>();
+        while(set.next()) {
+            photos.add(mapSetEntryToPhotoView(set));
+        }
+        return photos;
+    }
 
     private static Photo mapSetEntryToPhoto(ResultSet set) throws SQLException {
+        Photo p = new Photo();
+
+        p.id_photo = set.getInt("id_photo");
+        p.titre = set.getString("titre");
+        p.datepubliee = set.getDate("datepubliee");
+        p.legende = set.getString("legende");
+        p.chemin = set.getString("chemin");
+        p.visible = set.getBoolean("visible");
+        p.artistepseudo = set.getString("pseudo");
+
+        return p;
+    }
+    private static Photo mapSetEntryToPhotoView(ResultSet set) throws SQLException {
         Photo p = new Photo();
 
         p.id_photo = set.getInt("id_photo");
