@@ -52,6 +52,15 @@ public class App {
         });
 
         // TODO: Defines routes
+        //Rediriger sur la page /login_signin si l'utilisateur n'est pas connecté
+        app.before(ctx -> {
+            boolean ignore = ctx.path().equals("/login_signin");
+            if (ctx.path().endsWith(".css") || ctx.path().endsWith(".png"))
+                ignore = true;
+            if (!ignore && !(loggedUser(ctx) instanceof Utilisateur)) {
+                ctx.redirect("/login_signin");
+            }
+        });
 
         //Connexion
         ConnexionController connexionController = new ConnexionController();
