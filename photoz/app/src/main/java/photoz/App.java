@@ -60,16 +60,14 @@ public class App {
         // Gérer la soumission du formulaire de connexion
         app.post("/login_signin", connexionController::loginUser);
 
+        app.get("/logout", connexionController::logoutUser);
+
 
         //Affichage photo
         PhotoController photoController = new PhotoController();
         // Page d'accueil
-        //app.get("/", photoController::home);
-
-        //quand tu clique sur le pseudo
         app.get("/", photoController::homeUser );
 
-        //app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
 
         // Gestion de l'exception, fait par Samuel Roland

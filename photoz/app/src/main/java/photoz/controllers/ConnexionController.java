@@ -35,6 +35,12 @@ public class ConnexionController {
         }
         ctx.render("connexion.jte", Map.of("error", "Pseudo ou mot de passe incorrect"));
     }
+
+    public void logoutUser(Context ctx) {
+        ctx.sessionAttribute("utilisateur", null);
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/login_signin");
+    }
 }
 
 
