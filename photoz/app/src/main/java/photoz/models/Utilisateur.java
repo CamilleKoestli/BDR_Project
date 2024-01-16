@@ -49,7 +49,7 @@ public class Utilisateur {
     }
 
     private static ArrayList<Utilisateur> readUtilisateurs(ResultSet set) throws SQLException {
-        ArrayList<Utilisateur> utilisateurs = null;
+        ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
         while(set.next()) {
             utilisateurs.add(mapSetEntryToUser(set));
         }

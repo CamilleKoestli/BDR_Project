@@ -34,16 +34,20 @@ public class PhotoController {
         photos.add(new Photo(1, "Chien", date, "Couché de soleil", "DSC_0001.jpg", true, "Jeanno"));
         photos.add(new Photo(2, "Chat", date, "Timelapse sur ville", "DSC_0002.jpg", true, "Jeanno"));
 
-        ctx.render("photos.jte", Map.of("loggedUser", new Utilisateur("john_doe", "motdepasse1", "john.doe@example.com"), "photos", photos));
+        ctx.render("photos.jte", Map.of("loggedUser", new Utilisateur("john_doe", "123", "john.doe@example.com"), "photos", photos));
     }
 
     //Page accueil
     public void homeUser(Context ctx) throws SQLException {
-        String pseudo = ctx.sessionAttribute("pseudo");
+        Utilisateur utilisateur = ctx.sessionAttribute("utilisateur");
+        if (utilisateur != null) {
+            ArrayList<Photo> photos = Photo.photoUserCanSee();
 
-        ArrayList<Photo> photos = Photo.photoUserCanSee();
-
-        ctx.render("photos.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos));
+            ctx.render("photos.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos));
+        }
+        else {
+            ctx.redirect("/login_signin");
+        }
     }
 
     public void getPhotoDetails(Context ctx) throws SQLException {

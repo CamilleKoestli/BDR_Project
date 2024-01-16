@@ -24,11 +24,11 @@ public class ConnexionController {
         String pseudo = ctx.formParam("pseudo");
         String password = ctx.formParam("password");
 
-        if (pseudo == null || password == null) {
+        if (pseudo != null && password != null) {
             Utilisateur trouve = Utilisateur.find(pseudo);
             if (trouve != null && trouve.motdepasse.equals(password)) {
                 ctx.sessionAttribute("utilisateur", trouve);
-                ctx.redirect("/user" );
+                ctx.redirect("/" );
                 return;
             }
             ctx.render("Connexion échouée");

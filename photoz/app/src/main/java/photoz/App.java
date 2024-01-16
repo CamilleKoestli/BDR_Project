@@ -12,7 +12,6 @@ import gg.jte.resolve.DirectoryCodeResolver;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
-import io.javalin.plugin.bundled.DevLoggingPlugin;
 import io.javalin.rendering.template.JavalinJte;
 import photoz.database.PostgresConnection;
 import photoz.controllers.*;
@@ -65,10 +64,10 @@ public class App {
         //Affichage photo
         PhotoController photoController = new PhotoController();
         // Page d'accueil
-        app.get("/", photoController::home);
+        //app.get("/", photoController::home);
 
         //quand tu clique sur le pseudo
-        app.get("/user", photoController::homeUser );
+        app.get("/", photoController::homeUser );
 
         //app.get("/utilisateur/{pseudo}", photoController::home);
         app.get("/photos/{id}", photoController::getPhotoDetails);
