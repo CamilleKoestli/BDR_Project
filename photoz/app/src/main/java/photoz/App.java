@@ -3,9 +3,6 @@
  */
 package photoz;
 
-import java.nio.file.Path;
-import java.sql.Connection;
-
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
@@ -13,15 +10,19 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinJte;
+import photoz.controllers.ConnexionController;
+import photoz.controllers.PhotoController;
 import photoz.database.PostgresConnection;
-import photoz.controllers.*;
-import photoz.models.*;
+import photoz.models.Utilisateur;
+
+import java.nio.file.Path;
+import java.sql.Connection;
 
 public class App {
     static final int PORT = 7000;
     static Javalin app;
 
-    public static Object testLoggedUtilisateur = null;
+    public static Object testLoggedUtilisateur = Utilisateur.find("alfred10");
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");
@@ -75,9 +76,12 @@ public class App {
         //Affichage photo
         PhotoController photoController = new PhotoController();
         // Page d'accueil
-        app.get("/", photoController::homeUser );
+        app.get("/", photoController::homeUser);
         // Page de détails d'une photo
         app.get("/photos/{id}", photoController::getPhotoDetails);
+
+        app.get("/publish", photoController::publishPhoto);
+        app.post("/publish", photoController::storePhoto);
 
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {

@@ -3,6 +3,7 @@ package photoz.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import photoz.database.Query;
 
 public class Utilisateur {
@@ -11,7 +12,9 @@ public class Utilisateur {
     public String motdepasse;
 
 
-    public Utilisateur(){}
+    public Utilisateur() {
+    }
+
     public Utilisateur(String pseudo, String motdepasse, String email) {
         this.pseudo = pseudo;
         this.email = email;
@@ -35,33 +38,41 @@ public class Utilisateur {
         return readUtilisateurs(set);
     }
 
-    public static Utilisateur find(String pseudo) throws SQLException {
-        ResultSet set = Query.query("SELECT * FROM utilisateur WHERE pseudo = ?", new Object[] {pseudo});
+    public static Utilisateur find(String pseudo) {
+        ResultSet set = Query.query("SELECT * FROM utilisateur WHERE pseudo = ?", new Object[]{pseudo});
         ArrayList<Utilisateur> utilisateurs = readUtilisateurs(set);
-        if (!utilisateurs.isEmpty()){
+        if (!utilisateurs.isEmpty()) {
             return utilisateurs.getFirst();
         }
         return null;
     }
 
-    public boolean create() throws SQLException {
-        return Query.update("INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)", new Object[] {pseudo, motdepasse, email}) == 1;
+    public boolean create() {
+        return Query.update("INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES (?, ?, ?)", new Object[]{pseudo, motdepasse, email}) == 1;
     }
 
-    private static ArrayList<Utilisateur> readUtilisateurs(ResultSet set) throws SQLException {
+    private static ArrayList<Utilisateur> readUtilisateurs(ResultSet set) {
         ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
-        while(set.next()) {
-            utilisateurs.add(mapSetEntryToUser(set));
+        try {
+            while (set.next()) {
+                utilisateurs.add(mapSetEntryToUser(set));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return utilisateurs;
     }
 
-    private static Utilisateur mapSetEntryToUser(ResultSet set) throws SQLException {
+    private static Utilisateur mapSetEntryToUser(ResultSet set) {
         Utilisateur u = new Utilisateur();
-
-        u.pseudo = set.getString("pseudo");
-        u.email = set.getString("email");
-        u.motdepasse = set.getString("motdepasse");
-        return u;
+        try {
+            u.pseudo = set.getString("pseudo");
+            u.email = set.getString("email");
+            u.motdepasse = set.getString("motdepasse");
+            return u;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

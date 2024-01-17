@@ -36,12 +36,12 @@ public class Photo {
         return readPhotos(set);
     }
 
-    public static ArrayList<Photo> photoUserCanSee(String pseudo) throws SQLException {
+    public static ArrayList<Photo> photoUserCanSee(String pseudo)  {
         ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE utilisateurpseudo = ?", new Object[] {pseudo});
         return readPhotosView(set);
     }
 
-    public static Photo find(int id_photo) throws SQLException {
+    public static Photo find(int id_photo) {
         ResultSet set = Query.query("SELECT * FROM photo WHERE id_photo = ?", new Object[] {id_photo});
         ArrayList<Photo> photos = readPhotos(set);
         if (!photos.isEmpty()){
@@ -50,25 +50,35 @@ public class Photo {
         return null;
     }
 
-    public boolean create() throws SQLException {
-        return Query.update("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistepseudo}) == 1;
+    public int create() {
+        return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistepseudo}, "id_photo");
     }
 
-    public boolean delete() throws SQLException {
+    public boolean delete() {
         return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistepseudo}) == 1;
     }
 
-    private static ArrayList<Photo> readPhotos(ResultSet set) throws SQLException {
+    private static ArrayList<Photo> readPhotos(ResultSet set) {
         ArrayList<Photo> photos = new ArrayList<>();
-        while(set.next()) {
-            photos.add(mapSetEntryToPhoto(set));
+        try {
+            while (set.next()) {
+                photos.add(mapSetEntryToPhoto(set));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e);
         }
         return photos;
     }
-    private static ArrayList<Photo> readPhotosView(ResultSet set) throws SQLException {
+    private static ArrayList<Photo> readPhotosView(ResultSet set)  {
         ArrayList<Photo> photos = new ArrayList<>();
-        while(set.next()) {
-            photos.add(mapSetEntryToPhotoView(set));
+        try {
+            while (set.next()) {
+                photos.add(mapSetEntryToPhotoView(set));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e);
         }
         return photos;
     }

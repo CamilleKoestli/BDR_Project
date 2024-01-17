@@ -71,9 +71,6 @@ create table commentaire
 --
 create table tag
 (
-    pseudo varchar(255) not null
-        constraint "pseudoart_fk"
-            references utilisateur,
     mot    varchar      not null
         constraint "tag_pk"
             primary key
@@ -122,7 +119,7 @@ create table tagutilisateur
 --
 -- Table `tag photo`
 --
-create table tagPhoto
+create table tagphoto
 (
     mot      varchar(255) not null
         constraint "mot_fk"
