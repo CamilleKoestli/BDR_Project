@@ -151,7 +151,7 @@ create table badge
 (
     nom         varchar(255),
     description varchar(255),
-    id_badge    integer not null
+    id_badge    serial not null
         constraint "badge_pk"
             primary key
 );
@@ -161,7 +161,7 @@ create table badge
 --
 create table badgeutilisateur
 (
-    id_badge integer      not null
+    id_badge serial     not null
         constraint "badgeutilisateur_badge_id_badge_fk"
             references badge,
     pseudo   varchar(255) not null

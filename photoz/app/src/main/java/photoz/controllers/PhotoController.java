@@ -5,12 +5,10 @@ import photoz.App;
 import photoz.models.Photo;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
-
 import io.javalin.http.Context;
 import photoz.models.Utilisateur;
-
 import java.sql.SQLException;
 
 public class PhotoController {
@@ -48,7 +46,6 @@ public class PhotoController {
         photo.datepubliee = new Date(System.currentTimeMillis());
         photo.visible = ctx.formParam("visible").equals("on");
         photo.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
-        photo.id_photo = photo.create();
         if (photo.id_photo == -1) {
             ctx.render("publish.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "error", "Erreur lors de la création de la photo"));
             return;
@@ -56,6 +53,7 @@ public class PhotoController {
         var file = ctx.uploadedFile("file");
         photo.chemin = file.filename();
         FileUtil.streamToFile(file.content(), "src/main/static/images/" + photo.chemin);
+        photo.id_photo = photo.create();
         ctx.redirect("/photos/" + photo.id_photo);
     }
 

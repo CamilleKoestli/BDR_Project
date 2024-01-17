@@ -9,16 +9,16 @@ INSERT INTO utilisateur (pseudo, motdepasse, email) VALUES ('tony24', '5678', 't
 -- END
 
 -- dossier
-INSERT INTO dossier (id_dossier, nom, pseudo) VALUES (1, 'chien','john_doe');
-INSERT INTO dossier (id_dossier, nom, pseudo) VALUES (2,'cheval', 'jane_smith');
-INSERT INTO dossier (id_dossier, nom, pseudo) VALUES (3, 'animaux','john_doe');
-INSERT INTO dossier (id_dossier, nom, pseudo) VALUES (4, 'animaux','jane_smith');
+INSERT INTO dossier (nom, pseudo) VALUES ( 'chien','john_doe');
+INSERT INTO dossier (nom, pseudo) VALUES ('cheval', 'jane_smith');
+INSERT INTO dossier (nom, pseudo) VALUES ( 'animaux','john_doe');
+INSERT INTO dossier (nom, pseudo) VALUES ( 'animaux','jane_smith');
 
 -- END
 
 -- badge
-INSERT INTO badge (id_badge, nom, description) VALUES (1, '100reaction','Vous avez réagi a 100 photos');
-INSERT INTO badge (id_badge, nom, description) VALUES (2, '100photos','Vous avez publié 100 photos');
+INSERT INTO badge (nom, description) VALUES ('100reaction','Vous avez réagi a 100 photos');
+INSERT INTO badge (nom, description) VALUES ('100photos','Vous avez publié 100 photos');
 -- END
 
 -- badgeutilisateur
@@ -27,18 +27,18 @@ INSERT INTO badgeutilisateur (id_badge, pseudo) VALUES (2, 'jane_smith');
 -- END
 
 -- photo
-INSERT INTO photo (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (1, 'chien', '12.01.2023', 'chien', 'DSC_0001.jpg', true, 'john_doe');
-INSERT INTO photo (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (2, 'chat', '12.01.2023', 'chat', 'DSC_0002.jpg', false, 'john_doe');
-INSERT INTO photo (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (3, 'cheval', '1.04.2023', 'cheval', 'DSC_0003.jpg', true, 'jane_smith');
-INSERT INTO photo (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (4, 'chien', '1.04.2023', 'chien', 'DSC_0004.jpg', false, 'jane_smith');
-INSERT INTO photo (id_photo, titre, datepubliee, legende, chemin, visible, pseudo) VALUES (5, 'chien et chat', '12.01.2023', 'chien et chat', 'DSC_0005.jpg', false, 'john_doe');
+INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES ('chien', '12.01.2023', 'chien', 'DSC_0001.jpg', true, 'john_doe');
+INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES ('chat', '12.01.2023', 'chat', 'DSC_0002.jpg', false, 'john_doe');
+INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES ('cheval', '1.04.2023', 'cheval', 'DSC_0003.jpg', true, 'jane_smith');
+INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES ('chien', '1.04.2023', 'chien', 'DSC_0004.jpg', false, 'jane_smith');
+INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES ('chien et chat', '12.01.2023', 'chien et chat', 'DSC_0005.jpg', false, 'john_doe');
 
 -- END
 
 -- tag
-INSERT INTO tag (mot, pseudo) VALUES ('chien', 'john_doe');
-INSERT INTO tag (mot, pseudo) VALUES ('chat', 'john_doe');
-INSERT INTO tag (mot, pseudo) VALUES ('cheval', 'jane_smith');
+INSERT INTO tag (mot) VALUES ('chien');
+INSERT INTO tag (mot) VALUES ('chat');
+INSERT INTO tag (mot) VALUES ('cheval');
 -- END
 
 -- statut

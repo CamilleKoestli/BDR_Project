@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 
 public class Query {
 
@@ -53,6 +54,7 @@ public class Query {
             set.next();
             return set.getInt(primaryKey);
         } catch (SQLException e) {
+            System.out.println(e);
             return -1;
         }
     }
@@ -65,8 +67,8 @@ public class Query {
         return preparedStatement;
     }
     private static void assignParams(PreparedStatement preparedStatement, Object[] params) throws SQLException {
+        int cnt = 1;
         for (Object param : params) {
-            int cnt = 1;
             if (param instanceof String p) {
                 preparedStatement.setString(cnt++, p);
             }
@@ -75,6 +77,12 @@ public class Query {
             }
             if (param instanceof Double p) {
                 preparedStatement.setDouble(cnt++, p);
+            }
+            if (param instanceof Date p) {
+                preparedStatement.setDate(cnt++, p);
+            }
+            if (param instanceof Boolean p) {
+                preparedStatement.setBoolean(cnt++, p);
             }
         }
     }

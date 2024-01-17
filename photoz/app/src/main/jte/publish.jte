@@ -20,7 +20,7 @@ content = @`
         <input class="block my-5" type="file" name="file" />
         <button class="block my-5" type="submit">Poster</button>
         @if (error != null)
-            <p class="text-red-500">{{ error }}</p>
+            <p class="text-red-500">${error}</p>
 
         @endif
     </form>

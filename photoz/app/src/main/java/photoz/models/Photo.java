@@ -5,7 +5,7 @@ import photoz.database.Query;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class Photo {
     public int id_photo;
@@ -13,7 +13,7 @@ public class Photo {
     public Date datepubliee;
     public String legende;
     public String chemin;
-    public boolean visible; //true si la photo est visible par tous, false si elle est privée
+    public Boolean visible; //true si la photo est visible par tous, false si elle est privée
     public String artistepseudo;
 
     public Photo(){};
@@ -26,12 +26,12 @@ public class Photo {
         this.visible = visible;
         this.artistepseudo = artistePseudo;
     }
-    static ArrayList<Photo> all() throws SQLException {
+    static ArrayList<Photo> all() {
         ResultSet set = Query.query("SELECT * FROM photo");
         return readPhotos(set);
     }
 
-    public ArrayList<Photo> photoPublic() throws SQLException {
+    public ArrayList<Photo> photoPublic() {
         ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true AND photo.pseudo = ?", new Object[] {artistepseudo});
         return readPhotos(set);
     }
@@ -51,7 +51,7 @@ public class Photo {
     }
 
     public int create() {
-        return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, pseudo) VALUES (?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, artistepseudo}, "id_photo");
+        return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES (?, ?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, visible, artistepseudo}, "id_photo");
     }
 
     public boolean delete() {
