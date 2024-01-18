@@ -46,10 +46,10 @@ INSERT INTO tag (mot) VALUES ('cheval');
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('tony24', 'john_doe', true, true);
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('tony24', 'jane_smith', false, true);
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('tony24', 'john_doe', false, false);
-INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('tony24', 'jane_smith', true, false);
+INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('tony24', 'jane_smith', true, true);
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('alfred10', 'john_doe', false, true);
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('alfred10', 'jane_smith', true, true);
-INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('alfred10', 'john_doe', true, false);
+INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('alfred10', 'john_doe', true, true);
 INSERT INTO statut (pseudo, pseudoart, typedemande, accepte_refus) VALUES ('alfred10', 'jane_smith', false, false);
 -- END
 

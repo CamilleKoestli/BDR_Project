@@ -89,6 +89,9 @@ public class App {
         // Modification d'une photo
         app.put("/photos/{id}/edit", photoController::updatePhoto);
 
+        // Page de profil
+        app.get("/{pseudo}", photoController::displayProfil);
+
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {
             String msg = "<div style='font-family: monospace; font-size: 1.5em;'><h1>Java exception</h1>";

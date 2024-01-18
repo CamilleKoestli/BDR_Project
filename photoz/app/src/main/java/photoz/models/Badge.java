@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Badge {
-    private int id_badge;
-    private String nom;
-    private String description;
+    public int id_badge;
+    public String nom;
+    public String description;
 
     public Badge(String nom, String description, int id) {
         this.id_badge = id;

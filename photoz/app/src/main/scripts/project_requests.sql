@@ -134,10 +134,11 @@ FROM photo
 WHERE visible = true;
 --
 
--- Consulter les photos publiques et privées d’un artiste
+-- Consulter les photos publiques et privées d’un artiste selon le statut de l’utilisateur
 SELECT *
 FROM photo
-WHERE photo.pseudo = :pseudo;
+WHERE (visible = true AND pseudo = :pseudo)
+   OR (visible = false AND pseudo = :pseudo AND artistepseudo = :pseudo)
 --
 
 -- Consulter les photos publiques d'un artiste

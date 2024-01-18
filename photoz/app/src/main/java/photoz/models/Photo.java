@@ -16,8 +16,12 @@ public class Photo {
     public Boolean visible; //true si la photo est visible par tous, false si elle est privée
     public String artistepseudo;
 
-    public Photo(){};
-    public Photo(int id_photo, String titre, Date datepubliee,String legende, String chemin, boolean visible, String artistePseudo) {
+    public Photo() {
+    }
+
+    ;
+
+    public Photo(int id_photo, String titre, Date datepubliee, String legende, String chemin, boolean visible, String artistePseudo) {
         this.id_photo = id_photo;
         this.titre = titre;
         this.datepubliee = datepubliee;
@@ -26,40 +30,31 @@ public class Photo {
         this.visible = visible;
         this.artistepseudo = artistePseudo;
     }
-    static ArrayList<Photo> all() {
-        ResultSet set = Query.query("SELECT * FROM photo");
-        return readPhotos(set);
-    }
 
-    public ArrayList<Photo> photoPublic() {
-        ResultSet set = Query.query("SELECT * FROM photo WHERE visible = true AND photo.pseudo = ?", new Object[] {artistepseudo});
-        return readPhotos(set);
-    }
-
-    public static ArrayList<Photo> photoUserCanSee(String pseudo)  {
-        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE utilisateurpseudo = ?", new Object[] {pseudo});
+    public static ArrayList<Photo> photoUserCanSee(String pseudo) {
+        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE utilisateurpseudo = ?", new Object[]{pseudo});
         return readPhotosView(set);
     }
 
     public static Photo find(int id_photo) {
-        ResultSet set = Query.query("SELECT * FROM photo WHERE id_photo = ?", new Object[] {id_photo});
+        ResultSet set = Query.query("SELECT * FROM photo WHERE id_photo = ?", new Object[]{id_photo});
         ArrayList<Photo> photos = readPhotos(set);
-        if (!photos.isEmpty()){
+        if (!photos.isEmpty()) {
             return photos.getFirst();
         }
         return null;
     }
 
     public int create() {
-        return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES (?, ?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, visible, artistepseudo}, "id_photo");
+        return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES (?, ?, ?, ?, ?, ?)", new Object[]{titre, datepubliee, legende, chemin, visible, artistepseudo}, "id_photo");
     }
 
     public boolean update() {
-        return Query.update("UPDATE photo SET titre = ?, datepubliee = ?, legende = ?, chemin = ?,  visible   = ? WHERE id_photo = ? AND pseudo = ?", new Object[] {titre, datepubliee, legende, chemin, visible, artistepseudo, id_photo}) == 1;
+        return Query.update("UPDATE photo SET titre = ?, datepubliee = ?, legende = ?, chemin = ?,  visible   = ? WHERE id_photo = ? AND pseudo = ?", new Object[]{titre, datepubliee, legende, chemin, visible, artistepseudo, id_photo}) == 1;
     }
 
     public boolean delete() {
-        return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistepseudo}) == 1;
+        return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[]{id_photo, artistepseudo}) == 1;
     }
 
     private static ArrayList<Photo> readPhotos(ResultSet set) {
@@ -68,20 +63,19 @@ public class Photo {
             while (set.next()) {
                 photos.add(mapSetEntryToPhoto(set));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return photos;
     }
-    private static ArrayList<Photo> readPhotosView(ResultSet set)  {
+
+    private static ArrayList<Photo> readPhotosView(ResultSet set) {
         ArrayList<Photo> photos = new ArrayList<>();
         try {
             while (set.next()) {
                 photos.add(mapSetEntryToPhotoView(set));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return photos;
@@ -100,6 +94,7 @@ public class Photo {
 
         return p;
     }
+
     private static Photo mapSetEntryToPhotoView(ResultSet set) throws SQLException {
         Photo p = new Photo();
 

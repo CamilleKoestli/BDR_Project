@@ -2,6 +2,7 @@ package photoz.controllers;
 
 import io.javalin.util.FileUtil;
 import photoz.App;
+import photoz.models.Badge;
 import photoz.models.Photo;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import java.sql.SQLException;
 public class PhotoController {
 
     //Page accueil
-    public void homeUser(Context ctx) throws SQLException {
+    public void homeUser(Context ctx)  {
         ArrayList<Photo> photos = Photo.photoUserCanSee(((Utilisateur) App.loggedUser(ctx)).pseudo);
 
         ctx.render("photos.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos));
     }
 
-    public void getPhotoDetails(Context ctx) throws SQLException {
+    public void getPhotoDetails(Context ctx) {
         int photoId = Integer.parseInt(ctx.pathParam("id"));
 
         Photo trouve = Photo.find(photoId);
@@ -108,4 +109,13 @@ public class PhotoController {
             ctx.status(404).result("Photo non trouvée");
         }
     }
+
+    public void displayProfil(Context ctx)  {
+
+        ArrayList<Photo> photos = Photo.photoUserCanSee(((Utilisateur) App.loggedUser(ctx)).pseudo);
+        ArrayList<Badge> badges = Badge.findBadgesForUser(((Utilisateur) App.loggedUser(ctx)).pseudo);
+
+        ctx.render("profile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos, "badges", badges));
+    }
+
 }
