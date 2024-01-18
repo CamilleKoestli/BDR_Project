@@ -12,7 +12,7 @@
 
 @template.layout(
 content = @`
-    <h1>${loggedUtilisateur.pseudo}</h1>
+    <h1>${loggedUtilisateur.pseudo}</h1> <%--MAUVAIS PSEUDO photo.artistepseudo mais ne marche pas--%>
     <div class="flex">
         <div class="w-1/4">
             <h2>Badges</h2>
