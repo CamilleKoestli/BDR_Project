@@ -7,6 +7,8 @@
 @param Photo photo
 @param Utilisateur loggedUtilisateur = null
 @param Badge badge
+@param ArrayList<Photo> photos
+@param ArrayList<Badge> badges
 
 @template.layout(
 content = @`
