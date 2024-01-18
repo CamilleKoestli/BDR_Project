@@ -22,6 +22,7 @@ public class App {
     static final int PORT = 7000;
     static Javalin app;
 
+    //TODO REMETTRE A NULL POUR LE RENDU
     public static Object testLoggedUtilisateur = Utilisateur.find("alfred10");
 
     public static void main(String[] args) {
@@ -82,8 +83,11 @@ public class App {
 
         app.get("/publish", photoController::publishPhoto);
         app.post("/publish", photoController::storePhoto);
-        app.delete("/photos/{id}", photoController::deletePhoto);
-        app.put("/photos/{id}", photoController::updatePhoto);
+
+        // Suppression d'une photo
+        app.delete("/photos/{id}/delete", photoController::deletePhoto);
+        // Modification d'une photo
+        app.put("/photos/{id}/edit", photoController::updatePhoto);
 
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {

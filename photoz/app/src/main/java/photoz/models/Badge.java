@@ -30,7 +30,6 @@ public class Badge {
         try (ResultSet resultSet = Query.query(sql, new Object[]{pseudo})) {
             while (resultSet.next()) {
                 Badge badge = new Badge();
-                badge.id_badge = resultSet.getInt("id_badge");
                 badge.nom = resultSet.getString("nom");
                 badges.add(badge);
             }

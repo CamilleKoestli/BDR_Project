@@ -6,9 +6,12 @@ import photoz.models.Photo;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
+
 import io.javalin.http.Context;
 import photoz.models.Utilisateur;
+
 import java.sql.SQLException;
 
 public class PhotoController {
@@ -55,13 +58,47 @@ public class PhotoController {
         FileUtil.streamToFile(file.content(), "src/main/static/images/" + photo.chemin);
         photo.id_photo = photo.create();
         ctx.redirect("/photos/" + photo.id_photo);
-        if ()
+    }
+
+    public void updatePhoto(Context ctx) {
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        Photo trouve = Photo.find(photoId);
+
+        System.out.println("id : " + photoId);
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
+            // Remplir le modèle avec les valeurs actuelles de la photo existante
+            Map<String, Object> model = new HashMap<>();
+            model.put("loggedUtilisateur", App.loggedUser(ctx));
+            model.put("titre", trouve.titre);
+            model.put("legende", trouve.legende);
+            model.put("visible", trouve.visible);
+
+            ctx.render("publish.jte", model);
+
+            // Maintenant, vous pouvez mettre à jour la photo si le formulaire est soumis
+            if (ctx.formParam("submit") != null) {
+                trouve.titre = ctx.formParam("titre");
+                trouve.legende = ctx.formParam("legende");
+                trouve.datepubliee = new Date(System.currentTimeMillis());
+                trouve.visible = ctx.formParam("visible").equals("on");
+                trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
+
+                if (trouve.update()) {
+                    ctx.redirect("/photos/" + trouve.id_photo);
+                } else {
+                    ctx.status(403).result("Vous n'avez pas le droit de modifier cette photo");
+                }
+            } else {
+                ctx.status(404).result("Photo non trouvée");
+            }
+        }
+
     }
 
     public void deletePhoto(Context ctx) {
-        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        int photoId = Integer.parseInt(ctx.pathParam("id_photo"));
         Photo trouve = Photo.find(photoId);
-        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)){
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
             if (trouve.delete()) {
                 ctx.redirect("/");
             } else {
@@ -71,24 +108,4 @@ public class PhotoController {
             ctx.status(404).result("Photo non trouvée");
         }
     }
-
-    public void updatePhoto(Context ctx){
-        int photoId = Integer.parseInt(ctx.pathParam("id"));
-        Photo trouve = Photo.find(photoId);
-        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)){
-            trouve.titre = ctx.formParam("titre");
-            trouve.legende = ctx.formParam("legende");
-            trouve.datepubliee = new Date(System.currentTimeMillis());
-            trouve.visible = ctx.formParam("visible").equals("on");
-            trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
-            if (trouve.update()) {
-                ctx.redirect("/photos/" + trouve.id_photo);
-            } else {
-                ctx.status(403).result("Vous n'avez pas le droit de modifier cette photo");
-            }
-        } else {
-            ctx.status(404).result("Photo non trouvée");
-        }
-    }
-
 }

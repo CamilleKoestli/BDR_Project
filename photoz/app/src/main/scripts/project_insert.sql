@@ -17,6 +17,7 @@ INSERT INTO dossier (nom, pseudo) VALUES ( 'animaux','jane_smith');
 -- END
 
 -- badge
+INSERT INTO badge (nom, description) VALUES ('1photo','Vous avez publié votre première photo');
 INSERT INTO badge (nom, description) VALUES ('100reaction','Vous avez réagi a 100 photos');
 INSERT INTO badge (nom, description) VALUES ('100photos','Vous avez publié 100 photos');
 -- END
