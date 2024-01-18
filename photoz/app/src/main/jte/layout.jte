@@ -29,7 +29,9 @@
                 </div>
                 @template.menu()
             </div>
-
+            <div class="flex-1 items-center">
+            <img src="/logotext.png" width="250" height="auto">
+            </div>
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 @template.account(loggedUtilisateur)
             </div>

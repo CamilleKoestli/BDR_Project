@@ -11,13 +11,13 @@ content = @`
     <form action="/login_signin" method="post">
         <div class="form-group">
             <label for="login-pseudo">Pseudo</label>
-            <input type="text" id="login-pseudo" name="pseudo" required>
+            <input class="block mb-2" type="text" id="login-pseudo" name="pseudo" required>
         </div>
         <div class="form-group">
             <label for="login-password">Mot de passe</label>
-            <input type="password" id="login-password" name="password" required>
+            <input class="block mb-2" type="password" id="login-password" name="password" required>
         </div>
-        <button type="submit">Se connecter</button>
+        <button class="block mb-10 " type="submit">Se connecter</button>
         @if(error != null)
             <p class="error">${error}</p>
         @endif
@@ -29,18 +29,20 @@ content = @`
         <form action="/login_signin" method="post">
             <div class="form-group">
                 <label for="signup-pseudo">Pseudo</label>
-                <input type="text" id="signup-pseudo" name="pseudo" required>
+                <input class="block mb-2" type="text" id="signup-pseudo" name="pseudo" required>
             </div>
             <div class="form-group">
                 <label for="signup-email">Email</label>
-                <input type="email" id="signup-email" name="email" required>
+                <input class="block mb-2" type="email" id="signup-email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="signup-password">Mot de passe</label>
-                <input type="password" id="signup-password" name="password" required>
+                <input class="block mb-2" type="password" id="signup-password" name="password" required>
             </div>
-            <button type="submit">S'inscrire</button>
+            <button class="block mb-2" type="submit">S'inscrire</button>
         </form>
+
+        <img src="/logo_photoz.png" width="200" height="auto">
     </div>
 `,
 loggedUtilisateur
