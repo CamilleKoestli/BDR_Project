@@ -10,6 +10,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinJte;
+import photoz.controllers.ArtistesController;
 import photoz.controllers.ConnexionController;
 import photoz.controllers.PhotoController;
 import photoz.database.PostgresConnection;
@@ -50,11 +51,10 @@ public class App {
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("src/main/static", Location.EXTERNAL);
             config.plugins.enableDevLogging();
-            //config.plugins.register(new DevLoggingPlugin());
         });
 
-        // TODO: Defines routes
-        //Rediriger sur la page /login_signin si l'utilisateur n'est pas connecté
+
+        // Rediriger sur la page /login_signin si l'utilisateur n'est pas connecté
         app.before(ctx -> {
             boolean ignore = ctx.path().equals("/login_signin");
             if (ctx.path().endsWith(".css") || ctx.path().endsWith(".png"))
@@ -89,8 +89,10 @@ public class App {
         // Modification d'une photo
         app.put("/photos/{id}/edit", photoController::updatePhoto);
 
+
+        ArtistesController artistesController = new ArtistesController();
         // Page de profil
-        app.get("/{pseudo}", photoController::displayProfil);
+        app.get("/{pseudo}", artistesController::displayProfil);
 
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {
