@@ -12,25 +12,27 @@
 
 @template.layout(
 content = @`
-    <h1>${loggedUtilisateur.pseudo}</h1> <%--MAUVAIS PSEUDO photo.artistepseudo mais ne marche pas--%>
-    <div class="flex">
-        <div class="w-1/4">
-            <h2>Badges</h2>
-            <ul>
-                @for (Badge badge : badges)
-                    <li>${badge.nom}</li>
-                @endfor
-            </ul>
-        </div>
-        <div class="w-3/4">
-            <h2>Photos</h2>
-            <div class="flex flex-wrap">
-                @for (Photo photo : photos)
-                    @template.photo(photo)
-                @endfor
+    <h1>${photo.artistepseudo}</h1>
+    <a href="/${photo.artistepseudo}">
+        <div class="flex">
+            <div class="w-1/4">
+                <h2>Badges</h2>
+                <ul>
+                    @for (Badge badge : badges)
+                        <li>${badge.nom}</li>
+                    @endfor
+                </ul>
+            </div>
+            <div class="w-3/4">
+                <h2>Photos</h2>
+                <div class="flex flex-wrap">
+                    @for (Photo photo : photos)
+                        @template.photo(photo)
+                    @endfor
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 `,
-    loggedUtilisateur
+loggedUtilisateur
 )
