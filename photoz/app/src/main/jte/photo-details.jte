@@ -9,10 +9,10 @@
 content = @`
     <h1>${photo.titre}</h1>
     <a href="/photos/${photo.id_photo}">
-        <div class="mx-2 my-1 w-200 ">
+        <div class="mr-6 my-1 w-200 ">
             <a href="/photo/${photo.id_photo}/edit"><button>Modifier</button></a>
             <a href="/photo/${photo.id_photo}/delete"><button>Supprimer</button></a>
-            <img src="/images/${photo.chemin}" alt="" class="w-full">
+            <img src="/images/${photo.chemin}" alt="" class="mx-2 my-1 w-full">
             <p class="font-bold line-clamp-1 mt-1 mb-2">${photo.titre}</p>
             <div class="flex text-gray-600">
                 <p class="font-bold flex-1">${photo.artistepseudo}</p>
