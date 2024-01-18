@@ -166,26 +166,23 @@ INSERT INTO photo(titre, datepubliee, legende, chemin, visible, pseudo)
 VALUES (:titre, :datepubliee, :legende, :extension, :visible, :pseudo);
 
 -- Supprimer une photo
-DELETE
-FROM photo
+UPDATE photo
+SET titre   = :titre,
+    datepubliee = :datepubliee,
+    legende = :legende,
+    chemin = :chemin,
+    visible   = :visible
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
 --
 
 -- Spécifier les attributs de sa photo et spécifier le statut d’une photo (public ou privé)
 -- Attributs photos
-UPDATE photo
-SET titre   = :titre,
-    legende = :legende
+DELETE
+FROM photo
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
 
--- Privé ou public
-UPDATE photo
-SET visible   = :visible
-WHERE id_photo = :photo
-  AND pseudo = :pseudo;
---
 
 -- Ajouter, modifier ou supprimer des tags
 -- Ajouter un nouveau tag
@@ -211,3 +208,9 @@ SELECT B.*
 FROM badge B
 JOIN badgeutilisateur BU ON B.id_badge = BU.id_badge
 WHERE BU.pseudo = :pseudo;
+
+-- Voir tous les badges d'un utilisateur
+SELECT b.id_badge, b.nom
+FROM badge b
+INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge
+WHERE bu.pseudo = pseudo;

@@ -55,6 +55,40 @@ public class PhotoController {
         FileUtil.streamToFile(file.content(), "src/main/static/images/" + photo.chemin);
         photo.id_photo = photo.create();
         ctx.redirect("/photos/" + photo.id_photo);
+        if ()
+    }
+
+    public void deletePhoto(Context ctx) {
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        Photo trouve = Photo.find(photoId);
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)){
+            if (trouve.delete()) {
+                ctx.redirect("/");
+            } else {
+                ctx.status(403).result("Vous n'avez pas le droit de supprimer cette photo");
+            }
+        } else {
+            ctx.status(404).result("Photo non trouvée");
+        }
+    }
+
+    public void updatePhoto(Context ctx){
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        Photo trouve = Photo.find(photoId);
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)){
+            trouve.titre = ctx.formParam("titre");
+            trouve.legende = ctx.formParam("legende");
+            trouve.datepubliee = new Date(System.currentTimeMillis());
+            trouve.visible = ctx.formParam("visible").equals("on");
+            trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
+            if (trouve.update()) {
+                ctx.redirect("/photos/" + trouve.id_photo);
+            } else {
+                ctx.status(403).result("Vous n'avez pas le droit de modifier cette photo");
+            }
+        } else {
+            ctx.status(404).result("Photo non trouvée");
+        }
     }
 
 }

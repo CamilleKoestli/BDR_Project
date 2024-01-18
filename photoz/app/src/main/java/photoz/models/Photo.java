@@ -54,6 +54,10 @@ public class Photo {
         return Query.insert("INSERT INTO photo (titre, datepubliee, legende, chemin, visible, pseudo) VALUES (?, ?, ?, ?, ?, ?)", new Object[] {titre, datepubliee, legende,chemin, visible, artistepseudo}, "id_photo");
     }
 
+    public boolean update() {
+        return Query.update("UPDATE photo SET titre = ?, datepubliee = ?, legende = ?, chemin = ?,  visible   = ? WHERE id_photo = ? AND pseudo = ?", new Object[] {titre, datepubliee, legende, chemin, visible, artistepseudo, id_photo}) == 1;
+    }
+
     public boolean delete() {
         return Query.update("DELETE FROM photo WHERE id_photo = ? AND pseudo = ? ", new Object[] {id_photo, artistepseudo}) == 1;
     }

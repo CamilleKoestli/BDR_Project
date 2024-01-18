@@ -82,6 +82,8 @@ public class App {
 
         app.get("/publish", photoController::publishPhoto);
         app.post("/publish", photoController::storePhoto);
+        app.delete("/photos/{id}", photoController::deletePhoto);
+        app.put("/photos/{id}", photoController::updatePhoto);
 
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {
