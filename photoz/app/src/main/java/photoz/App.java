@@ -92,7 +92,7 @@ public class App {
 
         ArtistesController artistesController = new ArtistesController();
         // Page de profil
-        app.get("/{pseudo}", artistesController::displayProfil);
+        app.get("/profile/{pseudo}", artistesController::displayProfil);
 
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {

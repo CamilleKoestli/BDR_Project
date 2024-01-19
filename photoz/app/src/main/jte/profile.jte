@@ -13,7 +13,7 @@
 @template.layout(
 content = @`
     <h1>${photo.artistepseudo}</h1>
-    <a href="/${photo.artistepseudo}">
+    <a href="/profile/${photo.artistepseudo}">
         <div class="flex">
             <div class="w-1/4">
                 <h2>Badges</h2>
