@@ -2,8 +2,8 @@ package photoz.controllers;
 
 import io.javalin.util.FileUtil;
 import photoz.App;
-import photoz.models.Badge;
 import photoz.models.Photo;
+import photoz.models.Utilisateur;
 
 import java.util.ArrayList;
 import java.sql.Date;
@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.javalin.http.Context;
-import photoz.models.Utilisateur;
 
 import java.sql.SQLException;
 

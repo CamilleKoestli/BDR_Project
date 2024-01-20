@@ -5,14 +5,14 @@
 @param Utilisateur loggedUtilisateur = null
 @param ArrayList<Photo> photos
 
-	@template.layout(
-	content = @`
+@template.layout(
+content = @`
 	<h1>Fil d'actualité</h1>
 	<div class="flex flex-wrap">
 		@for(Photo photo : photos)
-		@template.photo(photo)
+			@template.photo(photo)
 		@endfor
 	</div>
-	`,
-	loggedUtilisateur
-	)
+`,
+loggedUtilisateur
+)

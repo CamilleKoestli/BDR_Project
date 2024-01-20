@@ -44,8 +44,8 @@ WHERE (s.a_acces = false AND p.visible = true)
 
 CREATE OR REPLACE VIEW vue_utilisateur_sur_artiste AS
 SELECT DISTINCT p.*,
-                s.pseudo    AS utilisateurpseudo,
-                s.pseudoart AS artistepseudo
+                s.pseudoart AS artistepseudo,
+                s.pseudo    AS utilisateurpseudo
 FROM photo p
          INNER JOIN (SELECT pseudo,
                             pseudoart,

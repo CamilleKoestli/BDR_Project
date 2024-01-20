@@ -6,13 +6,14 @@
 
 <%--@param Photo photo--%>
 @param Utilisateur loggedUtilisateur = null
+@param Utilisateur artiste = null
 <%--@param Badge badge--%>
 @param ArrayList<Photo> photos
 @param ArrayList<Badge> badges
 
 @template.layout(
 content = @`
-    <h1>${loggedUtilisateur.pseudo}</h1>
+    <h1>Profil de ${artiste.pseudo}</h1>
     <a href="/profile/${loggedUtilisateur.pseudo}">
         <div class="flex">
             <div class="w-1/4">

@@ -96,6 +96,7 @@ public class App {
         // Page de profil
         app.get("/profile/{pseudo}", artistesController::displayProfil);
 
+
         // Gestion de l'exception, fait par Samuel Roland
         app.exception(Exception.class, (e, ctx) -> {
             String msg = "<div style='font-family: monospace; font-size: 1.5em;'><h1>Java exception</h1>";

@@ -17,6 +17,6 @@ public class ArtistesController {
         ArrayList<Photo> photos = Photo.photoUserSeeArtiste(((Utilisateur) App.loggedUser(ctx)).pseudo, artiste.pseudo);
         ArrayList<Badge> badges = Badge.findBadgesForUser(((Utilisateur) App.loggedUser(ctx)).pseudo);
 
-        ctx.render("profile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos, "badges", badges));
+        ctx.render("profile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "artiste", artiste, "photos", photos, "badges", badges));
     }
 }
