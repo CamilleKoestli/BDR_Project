@@ -4,16 +4,16 @@
 @import java.util.ArrayList
 
 
-@param Photo photo
+<%--@param Photo photo--%>
 @param Utilisateur loggedUtilisateur = null
-@param Badge badge
+<%--@param Badge badge--%>
 @param ArrayList<Photo> photos
 @param ArrayList<Badge> badges
 
 @template.layout(
 content = @`
-    <h1>${photo.artistepseudo}</h1>
-    <a href="/profile/${photo.artistepseudo}">
+    <h1>${loggedUtilisateur.pseudo}</h1>
+    <a href="/profile/${loggedUtilisateur.pseudo}">
         <div class="flex">
             <div class="w-1/4">
                 <h2>Badges</h2>

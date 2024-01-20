@@ -85,9 +85,11 @@ public class App {
         app.post("/publish", photoController::storePhoto);
 
         // Suppression d'une photo
-        app.delete("/photos/{id}/delete", photoController::deletePhoto);
+        app.get("/photos/{id}/delete", ctx -> ctx.render("delete.jte"));
+        app.delete("/photo/{id}/delete", photoController::deletePhoto);
         // Modification d'une photo
-        app.put("/photos/{id}/edit", photoController::updatePhoto);
+        app.get("/photo/{id}/edit", photoController::updatePhoto);
+        app.put("/photo/{id}/edit", photoController::modifyPhoto);
 
 
         ArtistesController artistesController = new ArtistesController();

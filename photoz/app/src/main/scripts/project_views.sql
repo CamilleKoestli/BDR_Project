@@ -7,7 +7,7 @@ DROP view if exists view_photo_tag;
 
 -- Accès aux photos en fonction des abonnements et des suiveurs
 CREATE OR REPLACE VIEW view_photo_follow_subscription AS
-SELECT p.id_photo,
+SELECT DISTINCT p.id_photo,
        p.titre,
        p.datepubliee,
        p.legende,
@@ -21,6 +21,22 @@ FROM photo p
          INNER JOIN
      utilisateur u ON s.pseudo = u.pseudo
 WHERE s.accepte_refus = TRUE;
+--
+-- Accès aux photos en fonction des abonnements et des suiveurs
+-- CREATE OR REPLACE VIEW view_photo_follow_subscription AS
+-- SELECT DISTINCT p.id_photo,
+--                 p.titre,
+--                 p.datepubliee,
+--                 p.legende,
+--                 p.chemin,
+--                 p.visible,
+--                 p.pseudo AS artistepseudo,
+--                 s.pseudo AS utilisateurpseudo
+-- FROM (SELECT pseudo, pseudoart, typedemande
+--       FROM statut s
+--       WHERE pseudo = :pseudo
+--         AND accepte_refus = true) s
+--          INNER JOIN photo p ON typedemande = visible;
 --
 
 -- Les tags

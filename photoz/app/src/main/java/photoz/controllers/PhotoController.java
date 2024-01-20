@@ -70,12 +70,42 @@ public class PhotoController {
             // Remplir le modèle avec les valeurs actuelles de la photo existante
             Map<String, Object> model = new HashMap<>();
             model.put("loggedUtilisateur", App.loggedUser(ctx));
-            model.put("titre", trouve.titre);
+            /*model.put("titre", trouve.titre);
             model.put("legende", trouve.legende);
-            model.put("visible", trouve.visible);
+            model.put("visible", trouve.visible);*/
+            model.put("photo", trouve);
+            model.put("error", "Une erreur s'est produite lors de la modification de la photo.");
 
-            ctx.render("publish.jte", model);
+            ctx.render("edit.jte", model);
 
+            /*// Maintenant, vous pouvez mettre à jour la photo si le formulaire est soumis
+            if (ctx.formParam("submit") != null) {
+                trouve.titre = ctx.formParam("titre");
+                trouve.legende = ctx.formParam("legende");
+                trouve.datepubliee = new Date(System.currentTimeMillis());
+                trouve.visible = ctx.formParam("visible").equals("on");
+                trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
+
+                if (trouve.update()) {
+                    ctx.redirect("/photos/" + trouve.id_photo);
+                } else {
+                    ctx.status(403).result("Vous n'avez pas le droit de modifier cette photo");
+                }
+            } else {
+                ctx.status(404).result("Photo non trouvée");
+            }*/
+        }
+
+    }
+
+
+    public void modifyPhoto(Context ctx) {
+
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        Photo trouve = Photo.find(photoId);
+
+        System.out.println("id : " + photoId);
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
             // Maintenant, vous pouvez mettre à jour la photo si le formulaire est soumis
             if (ctx.formParam("submit") != null) {
                 trouve.titre = ctx.formParam("titre");
@@ -93,8 +123,9 @@ public class PhotoController {
                 ctx.status(404).result("Photo non trouvée");
             }
         }
-
     }
+
+
 
     public void deletePhoto(Context ctx) {
         int photoId = Integer.parseInt(ctx.pathParam("id_photo"));

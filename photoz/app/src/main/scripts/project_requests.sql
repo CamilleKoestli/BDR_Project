@@ -215,3 +215,18 @@ SELECT b.id_badge, b.nom
 FROM badge b
 INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge
 WHERE bu.pseudo = pseudo;
+
+SELECT DISTINCT p.id_photo,
+       p.titre,
+       p.datepubliee,
+       p.legende,
+       p.chemin,
+       p.visible,
+       p.pseudo AS artistepseudo,
+       s.pseudo  AS utilisateurpseudo
+FROM photo p
+         INNER JOIN
+     statut s ON p.pseudo = s.pseudoart
+         INNER JOIN
+     utilisateur u ON s.pseudo = u.pseudo
+WHERE s.accepte_refus = TRUE;
