@@ -18,8 +18,8 @@ import java.sql.SQLException;
 public class PhotoController {
 
     //Page accueil
-    public void homeUser(Context ctx)  {
-        ArrayList<Photo> photos = Photo.photoUserCanSee(((Utilisateur) App.loggedUser(ctx)).pseudo);
+    public void homeUser(Context ctx) {
+        ArrayList<Photo> photos = Photo.photoUserCanSee(((Utilisateur) App.loggedUser(ctx)).pseudo );
 
         ctx.render("photos.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos));
     }

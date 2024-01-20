@@ -20,13 +20,13 @@ FROM utilisateur
 WHERE pseudo = :pseudo;
 
 -- Créer un nouvel utilisateur
-INSERT INTO utilisateur (pseudo, motdepasse, adressemail)
-VALUES (:pseudo, :motdepasse, :adressemail);
+INSERT INTO utilisateur (pseudo, motdepasse, email)
+VALUES (:pseudo, :motdepasse, :email);
 
 -- Mise à jour d'un utilisateur
 UPDATE utilisateur
-SET motdepasse  = :motdepasse,
-    adressemail = :adressemail
+SET motdepasse = :motdepasse,
+    email      = :email
 WHERE pseudo = :pseudo;
 
 -- Supprimer un utilisateur
@@ -120,7 +120,7 @@ WHERE id_photo = :id_photo
 -- Consulter tous les artistes
 SELECT *
 FROM utilisateur U
-INNER JOIN photo P ON U.pseudo = P.pseudo;
+         INNER JOIN photo P ON U.pseudo = P.pseudo;
 --
 
 -- Consulter les photos publiques et privées de tout le monde
@@ -134,18 +134,38 @@ FROM photo
 WHERE visible = true;
 --
 
--- Consulter les photos publiques et privées d’un artiste selon le statut de l’utilisateur
-SELECT *
-FROM photo
-WHERE (visible = true AND pseudo = :pseudo)
-   OR (visible = false AND pseudo = :pseudo AND artistepseudo = :pseudo)
---
+/*-- Consulter les photos publiques et privées de tous les artistes selon le statut de l’utilisateur
+SELECT DISTINCT p.*
+FROM photo p
+INNER JOIN vue_statut_accepte s ON p.pseudo = s.pseudoart AND s.pseudo = :pseudo
+WHERE
+    (s.a_acces = false AND p.visible = true) OR (s.a_acces = true AND p.visible = false);
+--*/
+
+/*-- Même requête
+SELECT DISTINCT p.*
+FROM photo p
+INNER JOIN (SELECT
+    pseudo,
+    pseudoart,
+    CASE
+        WHEN typedemande = FALSE AND accepte_refus = TRUE THEN TRUE
+        WHEN typedemande = FALSE AND accepte_refus = FALSE THEN FALSE
+        WHEN typedemande = TRUE AND accepte_refus = TRUE THEN FALSE
+        WHEN typedemande = NULL THEN NULL
+        END AS a_acces
+FROM
+    statut) s ON p.pseudo = s.pseudoart AND s.pseudo = :pseudo
+WHERE
+    (s.a_acces = false AND p.visible = true) OR (s.a_acces = true AND p.visible = false);
+--*/
+
 
 -- Consulter les photos publiques d'un artiste
 SELECT *
 FROM photo
 WHERE visible = true
-    AND photo.pseudo = :pseudo;
+  AND photo.pseudo = :pseudo;
 --
 
 -- Consulter une photo
@@ -168,11 +188,11 @@ VALUES (:titre, :datepubliee, :legende, :extension, :visible, :pseudo);
 
 -- Supprimer une photo
 UPDATE photo
-SET titre   = :titre,
+SET titre       = :titre,
     datepubliee = :datepubliee,
-    legende = :legende,
-    chemin = :chemin,
-    visible   = :visible
+    legende     = :legende,
+    chemin      = :chemin,
+    visible     = :visible
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
 --
@@ -184,7 +204,6 @@ FROM photo
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
 
-
 -- Ajouter, modifier ou supprimer des tags
 -- Ajouter un nouveau tag
 INSERT INTO Tagphoto (mot, id_photo)
@@ -193,11 +212,14 @@ VALUES (:mot, :photo);
 -- Modifier le tag
 UPDATE tagphoto
 SET mot = :mot
-WHERE id_photo = :mot AND mot = :mot;
+WHERE id_photo = :mot
+  AND mot = :mot;
 
 -- Supprimer le tag de la photo
-DELETE FROM Tagphoto
-WHERE id_photo = :photo AND mot = :mot;
+DELETE
+FROM Tagphoto
+WHERE id_photo = :photo
+  AND mot = :mot;
 --
 
 --
@@ -207,26 +229,11 @@ WHERE id_photo = :photo AND mot = :mot;
 -- Voir tous les badges d'un utilisateur
 SELECT B.*
 FROM badge B
-JOIN badgeutilisateur BU ON B.id_badge = BU.id_badge
+         JOIN badgeutilisateur BU ON B.id_badge = BU.id_badge
 WHERE BU.pseudo = :pseudo;
 
 -- Voir tous les badges d'un utilisateur
 SELECT b.id_badge, b.nom
 FROM badge b
-INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge
+         INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge
 WHERE bu.pseudo = pseudo;
-
-SELECT DISTINCT p.id_photo,
-       p.titre,
-       p.datepubliee,
-       p.legende,
-       p.chemin,
-       p.visible,
-       p.pseudo AS artistepseudo,
-       s.pseudo  AS utilisateurpseudo
-FROM photo p
-         INNER JOIN
-     statut s ON p.pseudo = s.pseudoart
-         INNER JOIN
-     utilisateur u ON s.pseudo = u.pseudo
-WHERE s.accepte_refus = TRUE;

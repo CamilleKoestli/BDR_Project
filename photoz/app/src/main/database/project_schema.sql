@@ -21,9 +21,9 @@ create table utilisateur
 create table statut
 (
     --TRUE : suiveur    FALSE : abonnement
-    typedemande   BOOLEAN not null,
+    typedemande   BOOLEAN,
     -- TRUE : accepté   FALSE : refusé     NULL : en attente
-    accepte_refus BOOLEAN,
+    accepte_refus BOOLEAN NOT NULL,
     pseudo        varchar(255) not null
         constraint "Pseudo_fk"
             references utilisateur,

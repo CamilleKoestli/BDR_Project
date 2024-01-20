@@ -19,8 +19,6 @@ public class Photo {
     public Photo() {
     }
 
-    ;
-
     public Photo(int id_photo, String titre, Date datepubliee, String legende, String chemin, boolean visible, String artistePseudo) {
         this.id_photo = id_photo;
         this.titre = titre;
@@ -30,9 +28,13 @@ public class Photo {
         this.visible = visible;
         this.artistepseudo = artistePseudo;
     }
+    public static ArrayList<Photo> photoArtisteCanSee(String pseudo) {
+        ResultSet set = Query.query("SELECT DISTINCT p.id_photo, p.titre, p.datepubliee, p.legende, p.chemin, p.visible, p.pseudo AS artistepseudo, s.pseudo AS utilisateurpseudo FROM (SELECT pseudo, pseudoart, typedemande FROM statut s WHERE pseudo = ? AND accepte_refus = true) s INNER JOIN photo p ON typedemande = visible", new Object[]{pseudo});
+        return readPhotosView(set);
+    }
 
     public static ArrayList<Photo> photoUserCanSee(String pseudo) {
-        ResultSet set = Query.query("SELECT * FROM view_photo_follow_subscription WHERE utilisateurpseudo = ?", new Object[]{pseudo});
+        ResultSet set = Query.query("SELECT * FROM vue_statut_utilisateur WHERE utilisateurpseudo = ?", new Object[]{pseudo});
         return readPhotosView(set);
     }
 
