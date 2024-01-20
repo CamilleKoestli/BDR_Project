@@ -1,7 +1,7 @@
 --
 -- Views
 --
-set search_path=project_schema;
+set search_path = project_schema;
 
 -- Les tags
 CREATE OR REPLACE VIEW view_photo_tag AS
@@ -22,23 +22,44 @@ FROM photo p
 
 CREATE OR REPLACE VIEW vue_statut_utilisateur AS
 SELECT DISTINCT p.*,
-                s.pseudo  AS utilisateurpseudo
-FROM photo p
-INNER JOIN (SELECT
-    pseudo,
-    pseudoart,
-    CASE
-        WHEN typedemande = FALSE AND accepte_refus = TRUE THEN TRUE
-        WHEN typedemande = FALSE AND accepte_refus = FALSE THEN FALSE
-        WHEN typedemande = TRUE AND accepte_refus = TRUE THEN FALSE
-        WHEN typedemande = NULL THEN NULL
-    END AS a_acces
+                p.pseudo AS artistepseudo,
+                s.pseudo AS utilisateurpseudo
 
-FROM
-    statut) s ON p.pseudo = s.pseudoart
-INNER JOIN utilisateur u ON s.pseudo = u.pseudo
-WHERE
-    (s.a_acces = false AND p.visible = true) OR (s.a_acces = true AND p.visible = false);
+FROM photo p
+         INNER JOIN (SELECT pseudo,
+                            pseudoart,
+                            CASE
+                                WHEN typedemande = FALSE AND accepte_refus = TRUE THEN TRUE
+                                WHEN typedemande = FALSE AND accepte_refus = FALSE THEN FALSE
+                                WHEN typedemande = TRUE AND accepte_refus = TRUE THEN FALSE
+                                WHEN typedemande = NULL THEN NULL
+                                END AS a_acces
+
+                     FROM statut) s ON p.pseudo = s.pseudoart
+         INNER JOIN utilisateur u ON s.pseudo = u.pseudo
+WHERE (s.a_acces = false AND p.visible = true)
+   OR (s.a_acces = true AND p.visible = false);
+
+
+
+CREATE OR REPLACE VIEW vue_utilisateur_sur_artiste AS
+SELECT DISTINCT p.*,
+                s.pseudo    AS utilisateurpseudo,
+                s.pseudoart AS artistepseudo
+FROM photo p
+         INNER JOIN (SELECT pseudo,
+                            pseudoart,
+                            CASE
+                                WHEN typedemande = FALSE AND accepte_refus = TRUE THEN TRUE
+                                WHEN typedemande = FALSE AND accepte_refus = FALSE THEN FALSE
+                                WHEN typedemande = TRUE AND accepte_refus = TRUE THEN FALSE
+                                WHEN typedemande = NULL THEN NULL
+                                END AS a_acces
+
+                     FROM statut) s ON p.pseudo = s.pseudoart
+         INNER JOIN utilisateur u ON s.pseudo = u.pseudo
+WHERE (s.a_acces = false AND p.visible = true)
+   OR (s.a_acces = true AND p.visible = false);
 
 
 

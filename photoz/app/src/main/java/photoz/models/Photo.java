@@ -28,8 +28,8 @@ public class Photo {
         this.visible = visible;
         this.artistepseudo = artistePseudo;
     }
-    public static ArrayList<Photo> photoArtisteCanSee(String pseudo) {
-        ResultSet set = Query.query("SELECT DISTINCT p.id_photo, p.titre, p.datepubliee, p.legende, p.chemin, p.visible, p.pseudo AS artistepseudo, s.pseudo AS utilisateurpseudo FROM (SELECT pseudo, pseudoart, typedemande FROM statut s WHERE pseudo = ? AND accepte_refus = true) s INNER JOIN photo p ON typedemande = visible", new Object[]{pseudo});
+    public static ArrayList<Photo> photoUserSeeArtiste(String pseudo, String artistepseudo) {
+        ResultSet set = Query.query("SELECT * FROM vue_utilisateur_sur_artiste WHERE utilisateurpseudo = ? AND artistepseudo = ? ", new Object[]{pseudo, artistepseudo});
         return readPhotosView(set);
     }
 

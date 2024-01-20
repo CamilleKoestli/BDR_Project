@@ -33,7 +33,7 @@ public class Utilisateur {
         this.motdepasse = motdepasse;
     }
 
-    static ArrayList<Utilisateur> all() throws SQLException {
+    static ArrayList<Utilisateur> all() {
         ResultSet set = Query.query("SELECT * FROM utilisateur");
         return readUtilisateurs(set);
     }
