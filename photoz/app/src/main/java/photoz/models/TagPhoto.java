@@ -12,8 +12,10 @@ public class TagPhoto {
 
     public int id_photo;
 
-    public TagPhoto(){}
-    public TagPhoto (String mot, int id_photo) {
+    public TagPhoto() {
+    }
+
+    public TagPhoto(String mot, int id_photo) {
         this.mot = mot;
         this.id_photo = id_photo;
 
@@ -53,14 +55,17 @@ public class TagPhoto {
         return Tags;
     }
 
-    private static TagPhoto mapSetEntryToTagPhoto(ResultSet set) throws SQLException {
+    private static TagPhoto mapSetEntryToTagPhoto(ResultSet set) {
         TagPhoto p = new TagPhoto();
 
-        p.mot = set.getString("mot");
-        p.id_photo = set.getInt("id_photo");
+        try {
+            p.mot = set.getString("mot");
+            p.id_photo = set.getInt("id_photo");
 
-        return p;
+            return p;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
-
-
 }

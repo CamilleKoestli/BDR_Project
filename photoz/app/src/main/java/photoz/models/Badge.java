@@ -40,4 +40,31 @@ public class Badge {
 
         return badges;
     }
+
+    private static ArrayList<Badge> readBadges(ResultSet set) {
+        ArrayList<Badge> badges = new ArrayList<>();
+        try {
+            while (set.next()) {
+                badges.add(mapSetEntryToTag(set));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return badges;
+    }
+
+    private static Badge mapSetEntryToTag(ResultSet set)  {
+        Badge b = new Badge();
+
+       try {
+           b.id_badge = set.getInt("id_badge");
+           b.nom = set.getString("nom");
+           b.description = set.getString("description");
+
+           return b;
+       } catch (SQLException e) {
+           System.out.println(e);
+           return null;
+       }
+    }
 }

@@ -43,11 +43,16 @@ public class Tag {
         return Tags;
     }
 
-    private static Tag mapSetEntryToTag(ResultSet set) throws SQLException {
+    private static Tag mapSetEntryToTag(ResultSet set) {
         Tag p = new Tag();
 
-        p.mot = set.getString("mot");
+        try {
+            p.mot = set.getString("mot");
 
-        return p;
+            return p;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

@@ -220,12 +220,6 @@ WHERE id_photo = :photo
 
 -- Voir tous les badges d'un utilisateur
 SELECT B.*
-FROM badge B
-         JOIN badgeutilisateur BU ON B.id_badge = BU.id_badge
-WHERE BU.pseudo = :pseudo;
-
--- Voir tous les badges d'un utilisateur
-SELECT b.id_badge, b.nom
 FROM badge b
-         INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge
-WHERE bu.pseudo = pseudo;
+         INNER JOIN badgeutilisateur bu ON B.id_badge = bu.id_badge
+WHERE bu.pseudo = :pseudo;
