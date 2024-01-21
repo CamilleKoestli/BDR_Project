@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ConnexionController {
     // Création d'un nouvel utilisateur
-    public void createUser(Context ctx) throws SQLException {
+    public void createUser(Context ctx) {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.pseudo = ctx.formParam("pseudo");
         utilisateur.motdepasse = ctx.formParam("motdepasse");
@@ -20,7 +20,7 @@ public class ConnexionController {
     }
 
     // Lecture des informations d'un utilisateur
-    public void loginUser(Context ctx) throws SQLException {
+    public void loginUser(Context ctx) {
         String pseudo = ctx.formParam("pseudo");
         String password = ctx.formParam("password");
 
