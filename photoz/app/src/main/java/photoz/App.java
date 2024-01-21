@@ -89,6 +89,7 @@ public class App {
 
         // Modification d'une photo
         app.get("/photo/{id}/edit", photoController::updatePhoto);
+        app.put("/photo/{id}/edit", photoController::modifyPhoto);
         app.post("/photo/{id}/edit", photoController::modifyPhoto);
 
 

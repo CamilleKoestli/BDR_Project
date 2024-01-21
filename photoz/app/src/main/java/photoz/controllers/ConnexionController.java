@@ -16,7 +16,6 @@ public class ConnexionController {
 
         utilisateur.create();
         ctx.status(201).result("Utilisateur créé");
-
     }
 
     // Lecture des informations d'un utilisateur

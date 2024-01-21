@@ -57,7 +57,7 @@ public class Photo {
     }
 
     public boolean update() {
-        return Query.update("UPDATE photo SET titre = ?, datepubliee = ?, legende = ?, chemin = ?,  visible   = ? WHERE id_photo = ? AND pseudo = ?", new Object[]{titre, datepubliee, legende, chemin, visible, artistepseudo, id_photo}) == 1;
+        return Query.update("UPDATE photo SET titre = ?, datepubliee = ?, legende = ?,  visible   = ? WHERE id_photo = ? AND pseudo = ?", new Object[]{titre, datepubliee, legende, visible, artistepseudo, id_photo}) == 1;
     }
 
     public boolean delete() {

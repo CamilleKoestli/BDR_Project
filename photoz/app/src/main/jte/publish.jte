@@ -13,7 +13,7 @@ content = @`
     <form action="/publish" method="post" enctype="multipart/form-data">
         <label>Titre</label>
         <input class="block mb-5" name="titre"/>
-        <label>Legende</label>
+        <label>Légende</label>
         <textarea class="block mb-5" name="legende" placeholder="optionnel"></textarea>
         <label for="visible">Visible publiquement</label>
         <input class="mx-4" type="checkbox" name="visible" id="visible" checked/>

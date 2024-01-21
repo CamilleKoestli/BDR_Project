@@ -191,7 +191,6 @@ UPDATE photo
 SET titre       = :titre,
     datepubliee = :datepubliee,
     legende     = :legende,
-    chemin      = :chemin,
     visible     = :visible
 WHERE id_photo = :photo
   AND pseudo = :pseudo;

@@ -9,12 +9,12 @@
 content = @`
     <h1>${photo.titre}</h1>
     <div class="mr-6 my-1 w-200 ">
-        <form action="/photo/${photo.id_photo}/edit">
+        <a href="/photo/${photo.id_photo}/edit">
             <!-- Condition pour afficher le bouton "Modifier" -->
             @if(loggedUtilisateur != null && photo.artistepseudo.equals(loggedUtilisateur.pseudo))
                 <button type="submit" href="/photo/${photo.id_photo}/edit">Modifier</button>
             @endif
-        </form>
+        </a>
 
         <!-- Condition pour afficher le bouton "Supprimer" -->
         <form action="/photo/${photo.id_photo}/delete" method="post">
