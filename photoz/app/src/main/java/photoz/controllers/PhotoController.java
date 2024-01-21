@@ -12,8 +12,6 @@ import java.util.Map;
 
 import io.javalin.http.Context;
 
-import java.sql.SQLException;
-
 public class PhotoController {
 
     //Page accueil
@@ -57,7 +55,7 @@ public class PhotoController {
         photo.chemin = file.filename();
         FileUtil.streamToFile(file.content(), "src/main/static/images/" + photo.chemin);
         photo.id_photo = photo.create();
-        ctx.redirect("/photos/" + photo.id_photo);
+        ctx.redirect("/photo/" + photo.id_photo);
     }
 
     public void updatePhoto(Context ctx) {
@@ -114,7 +112,7 @@ public class PhotoController {
                 trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
 
                 if (trouve.update()) {
-                    ctx.redirect("/photos/" + trouve.id_photo);
+                    ctx.redirect("/photo/" + trouve.id_photo);
                 } else {
                     ctx.status(403).result("Vous n'avez pas le droit de modifier cette photo");
                 }
@@ -124,12 +122,12 @@ public class PhotoController {
         }
     }
 
-
-
     public void deletePhoto(Context ctx) {
-        int photoId = Integer.parseInt(ctx.pathParam("id_photo"));
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
         Photo trouve = Photo.find(photoId);
-        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
+
+        if (trouve != null && trouve.artistepseudo.equals(((Utilisateur)
+                App.loggedUser(ctx)).pseudo)) {
             if (trouve.delete()) {
                 ctx.redirect("/");
             } else {
@@ -139,7 +137,4 @@ public class PhotoController {
             ctx.status(404).result("Photo non trouvée");
         }
     }
-
-
-
 }
