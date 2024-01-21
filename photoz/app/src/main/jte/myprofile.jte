@@ -18,7 +18,9 @@ content = @`
                 <h2>Badges</h2>
                 <ul>
                     @for (Badge badge : badges)
-                        <li>${badge.nom}</li>
+                        <li>
+                            <img src="/firstpost.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                        </li>
                     @endfor
                 </ul>
             </div>
