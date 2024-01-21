@@ -18,12 +18,13 @@ INSERT INTO dossier (nom, pseudo) VALUES ( 'animaux','jane_smith');
 
 -- badge
 INSERT INTO badge (nom, description) VALUES ('1photo','Vous avez publié votre première photo');
-INSERT INTO badge (nom, description) VALUES ('100reaction','Vous avez réagi a 100 photos');
+INSERT INTO badge (nom, description) VALUES ('100reactions','Vous avez réagi a 100 photos');
 INSERT INTO badge (nom, description) VALUES ('100photos','Vous avez publié 100 photos');
 -- END
 
 -- badgeutilisateur
 INSERT INTO badgeutilisateur (id_badge, pseudo) VALUES (1, 'john_doe');
+INSERT INTO badgeutilisateur (id_badge, pseudo) VALUES (1, 'jane_smith');
 INSERT INTO badgeutilisateur (id_badge, pseudo) VALUES (2, 'jane_smith');
 -- END
 

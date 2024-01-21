@@ -161,11 +161,10 @@ WHERE
 --*/
 
 
--- Consulter les photos publiques d'un artiste
+-- Consulter les photos d'un artiste
 SELECT *
 FROM photo
-WHERE visible = true
-  AND photo.pseudo = :pseudo;
+WHERE photo.pseudo = :pseudo;
 --
 
 -- Consulter une photo
@@ -186,7 +185,8 @@ WHERE typedemande = FALSE
 INSERT INTO photo(titre, datepubliee, legende, chemin, visible, pseudo)
 VALUES (:titre, :datepubliee, :legende, :extension, :visible, :pseudo);
 
--- Supprimer une photo
+-- Spécifier les attributs de sa photo et spécifier le statut d’une photo (public ou privé)
+-- Attributs photos
 UPDATE photo
 SET titre       = :titre,
     datepubliee = :datepubliee,
@@ -197,12 +197,13 @@ WHERE id_photo = :photo
   AND pseudo = :pseudo;
 --
 
--- Spécifier les attributs de sa photo et spécifier le statut d’une photo (public ou privé)
--- Attributs photos
+-- Supprimer une photo
 DELETE
 FROM photo
 WHERE id_photo = :photo
   AND pseudo = :pseudo;
+
+
 
 -- Ajouter, modifier ou supprimer des tags
 -- Ajouter un nouveau tag
