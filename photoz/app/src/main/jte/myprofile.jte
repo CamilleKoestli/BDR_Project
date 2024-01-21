@@ -19,7 +19,17 @@ content = @`
                 <ul>
                     @for (Badge badge : badges)
                         <li>
-                            <img src="/firstpost.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                            @if(badge.nom.equals("1photo"))
+                                <img src="/firstpost.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                            @endif
+
+                            @if(badge.nom.equals("100photos"))
+                                <img src="/100photos.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                            @endif
+
+                            @if(badge.nom.equals("100reactions"))
+                                <img src="/100reactions.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                            @endif
                         </li>
                     @endfor
                 </ul>
