@@ -27,6 +27,14 @@ public class Commentaire {
         return readCommentaire(set);
     }
 
+    public static Commentaire addCommentaire(String texte, String pseudo, int id_photo) {
+        int id_comm = Query.insert("INSERT INTO commentaire (texte, pseudo, id_photo) VALUES (?, ?, ?)", new Object[]{texte, pseudo, id_photo}, "id_comm");
+        if (id_comm == -1) {
+            return null;
+        }
+        return new Commentaire(id_comm, texte, pseudo, id_photo);
+    }
+
     private static ArrayList<Commentaire> readCommentaire(ResultSet set) {
         ArrayList<Commentaire> commentaires = new ArrayList<>();
         try {

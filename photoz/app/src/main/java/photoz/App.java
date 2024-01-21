@@ -92,6 +92,8 @@ public class App {
         app.put("/photo/{id}/edit", photoController::modifyPhoto);
         app.post("/photo/{id}/edit", photoController::modifyPhoto);
 
+        // Commentaire
+        app.post("/photo/{id}/comments", photoController::addComment);
 
         ArtistesController artistesController = new ArtistesController();
         // Page de profil
