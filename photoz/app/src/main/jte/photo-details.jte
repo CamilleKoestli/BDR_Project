@@ -1,9 +1,12 @@
+@import photoz.models.Commentaire
 @import photoz.models.Photo
 @import photoz.models.Utilisateur
+@import java.util.ArrayList
 
 
 @param Photo photo
 @param Utilisateur loggedUtilisateur = null
+@param ArrayList<Commentaire> commentaires
 
 @template.layout(
 content = @`
@@ -31,6 +34,21 @@ content = @`
                 <p class="font-bold">${photo.artistepseudo}</p>
             </a>
             <p class="mx-3">${photo.legende}</p>
+        </div>
+        <p class="font-bold line-clamp-1 mt-1 mb-10"></p>
+        <div class="comments-section">
+            <p class="font-bold line-clamp-1 mt-1 mb-2">Commentaires</p>
+            @for(Commentaire commentaire : commentaires)
+                @template.comment(commentaire)
+            @endfor
+
+            <!-- Formulaire pour ajouter un commentaire (visible uniquement pour les utilisateurs connectés) -->
+            @if(loggedUtilisateur != null)
+                <form action="/photo/${photo.id_photo}/comments" method="post">
+                    <textarea name="contenu" placeholder="Ajoutez un commentaire..." required></textarea>
+                    <button type="submit">Envoyer</button>
+                </form>
+            @endif
         </div>
     </div>
 `,

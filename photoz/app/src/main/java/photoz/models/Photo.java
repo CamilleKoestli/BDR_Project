@@ -28,6 +28,7 @@ public class Photo {
         this.visible = visible;
         this.artistepseudo = artistePseudo;
     }
+
     public static ArrayList<Photo> photoUserSeeArtiste(String pseudo, String artistepseudo) {
         ResultSet set = Query.query("SELECT * FROM vue_utilisateur_sur_artiste WHERE utilisateurpseudo = ? AND artistepseudo = ? ", new Object[]{pseudo, artistepseudo});
         return readPhotos(set);
@@ -38,7 +39,7 @@ public class Photo {
         return readPhotos(set);
     }
 
-    public static ArrayList<Photo> myPhotos (String pseudo) {
+    public static ArrayList<Photo> myPhotos(String pseudo) {
         ResultSet set = Query.query("SELECT * FROM photo WHERE photo.pseudo = ? ", new Object[]{pseudo});
         return readPhotos(set);
     }
@@ -76,18 +77,22 @@ public class Photo {
         return photos;
     }
 
-    private static Photo mapSetEntryToPhoto(ResultSet set) throws SQLException {
+    private static Photo mapSetEntryToPhoto(ResultSet set) {
         Photo p = new Photo();
 
-        p.id_photo = set.getInt("id_photo");
-        p.titre = set.getString("titre");
-        p.datepubliee = set.getDate("datepubliee");
-        p.legende = set.getString("legende");
-        p.chemin = set.getString("chemin");
-        p.visible = set.getBoolean("visible");
-        p.artistepseudo = set.getString("pseudo");
+        try {
+            p.id_photo = set.getInt("id_photo");
+            p.titre = set.getString("titre");
+            p.datepubliee = set.getDate("datepubliee");
+            p.legende = set.getString("legende");
+            p.chemin = set.getString("chemin");
+            p.visible = set.getBoolean("visible");
+            p.artistepseudo = set.getString("pseudo");
 
-        return p;
+            return p;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
-
 }
