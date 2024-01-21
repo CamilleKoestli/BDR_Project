@@ -185,7 +185,7 @@ WHERE id_photo = :photo
 -- Tags d’une photo
 -- Afficher tags
 SELECT *
-FROM tag
+FROM tag;
 
 -- Ajouter tags
 INSERT INTO tag (mot)
