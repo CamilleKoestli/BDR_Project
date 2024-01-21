@@ -113,4 +113,13 @@ public class PhotoController {
             ctx.status(404).result("Photo non trouvée");
         }
     }
+
+    public void addComment(Context ctx) {
+        int photoId = Integer.parseInt(ctx.pathParam("id"));
+        Photo trouve = Photo.find(photoId);
+        String pseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
+        String commentaire = ctx.formParam("commentaire");
+        Commentaire.addCommentaire(commentaire, pseudo, photoId);
+        ctx.redirect("/photo/" + photoId+ "/comments");
+    }
 }
