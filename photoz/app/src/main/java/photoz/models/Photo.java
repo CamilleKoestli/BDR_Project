@@ -38,6 +38,11 @@ public class Photo {
         return readPhotos(set);
     }
 
+    public static ArrayList<Photo> myPhotos (String pseudo) {
+        ResultSet set = Query.query("SELECT * FROM photo WHERE photo.pseudo = ? ", new Object[]{pseudo});
+        return readPhotos(set);
+    }
+
     public static Photo find(int id_photo) {
         ResultSet set = Query.query("SELECT * FROM photo WHERE id_photo = ?", new Object[]{id_photo});
         ArrayList<Photo> photos = readPhotos(set);
