@@ -79,14 +79,14 @@ public class App {
         // Page d'accueil
         app.get("/", photoController::homeUser);
         // Page de détails d'une photo
-        app.get("/photos/{id}", photoController::getPhotoDetails);
+        app.get("/photo/{id}", photoController::getPhotoDetails);
 
         app.get("/publish", photoController::publishPhoto);
         app.post("/publish", photoController::storePhoto);
 
         // Suppression d'une photo
-        app.get("/photos/{id}/delete", ctx -> ctx.render("delete.jte"));
-        app.delete("/photo/{id}/delete", photoController::deletePhoto);
+        app.post("/photo/{id}/delete", photoController::deletePhoto);
+
         // Modification d'une photo
         app.get("/photo/{id}/edit", photoController::updatePhoto);
         app.put("/photo/{id}/edit", photoController::modifyPhoto);
@@ -95,6 +95,7 @@ public class App {
         ArtistesController artistesController = new ArtistesController();
         // Page de profil
         app.get("/profile/{pseudo}", artistesController::displayProfil);
+        app.get("/myprofile/{pseudo}",artistesController::displayMyProfil);
 
 
         // Gestion de l'exception, fait par Samuel Roland
