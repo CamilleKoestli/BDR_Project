@@ -11,12 +11,25 @@ import java.util.Map;
 
 public class ArtistesController {
 
-    public void displayProfil(Context ctx)  {
+    public void displayProfil(Context ctx) {
         Utilisateur artiste = Utilisateur.find(ctx.pathParam("pseudo"));
 
         ArrayList<Photo> photos = Photo.photoUserSeeArtiste(((Utilisateur) App.loggedUser(ctx)).pseudo, artiste.pseudo);
         ArrayList<Badge> badges = Badge.findBadgesForUser(((Utilisateur) App.loggedUser(ctx)).pseudo);
 
-        ctx.render("profile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "artiste", artiste, "photos", photos, "badges", badges));
+        if (artiste.pseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
+            ctx.render("myprofile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos, "badges", badges));
+        } else {
+            ctx.render("profile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "artiste", artiste, "photos", photos, "badges", badges));
+        }
+    }
+
+    public void displayMyProfil(Context ctx) {
+        Utilisateur utilisateur = Utilisateur.find(ctx.pathParam("pseudo"));
+
+        ArrayList<Photo> photos = Photo.myPhotos(((Utilisateur) App.loggedUser(ctx)).pseudo);
+        ArrayList<Badge> badges = Badge.findBadgesForUser(((Utilisateur) App.loggedUser(ctx)).pseudo);
+
+        ctx.render("myprofile.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photos", photos, "badges", badges));
     }
 }
