@@ -100,6 +100,12 @@ SET texte = :texte
 WHERE id_comm = :id_comm;
 --
 
+-- Voir tous les commentaires d’une photo
+SELECT *
+FROM commentaire
+WHERE id_photo = :id_photo;
+--
+
 -- Ajouter ou modifier une réaction
 -- Ajouter une réaction
 INSERT INTO reaction (plus_moins, id_photo, pseudo)
@@ -133,33 +139,6 @@ SELECT *
 FROM photo
 WHERE visible = true;
 --
-
-/*-- Consulter les photos publiques et privées de tous les artistes selon le statut de l’utilisateur
-SELECT DISTINCT p.*
-FROM photo p
-INNER JOIN vue_statut_accepte s ON p.pseudo = s.pseudoart AND s.pseudo = :pseudo
-WHERE
-    (s.a_acces = false AND p.visible = true) OR (s.a_acces = true AND p.visible = false);
---*/
-
-/*-- Même requête
-SELECT DISTINCT p.*
-FROM photo p
-INNER JOIN (SELECT
-    pseudo,
-    pseudoart,
-    CASE
-        WHEN typedemande = FALSE AND accepte_refus = TRUE THEN TRUE
-        WHEN typedemande = FALSE AND accepte_refus = FALSE THEN FALSE
-        WHEN typedemande = TRUE AND accepte_refus = TRUE THEN FALSE
-        WHEN typedemande = NULL THEN NULL
-        END AS a_acces
-FROM
-    statut) s ON p.pseudo = s.pseudoart AND s.pseudo = :pseudo
-WHERE
-    (s.a_acces = false AND p.visible = true) OR (s.a_acces = true AND p.visible = false);
---*/
-
 
 -- Consulter les photos d'un artiste
 SELECT *
@@ -203,10 +182,23 @@ WHERE id_photo = :photo
   AND pseudo = :pseudo;
 
 
+-- Tags d’une photo
+-- Afficher tags
+SELECT *
+FROM tag
+
+-- Ajouter tags
+INSERT INTO tag (mot)
+VALUES (:mot);
 
 -- Ajouter, modifier ou supprimer des tags
+-- Afficher tags d'une photo
+SELECT *
+FROM tagphoto
+WHERE id_photo = :photo;
+
 -- Ajouter un nouveau tag
-INSERT INTO Tagphoto (mot, id_photo)
+INSERT INTO tagphoto (mot, id_photo)
 VALUES (:mot, :photo);
 
 -- Modifier le tag
@@ -217,7 +209,7 @@ WHERE id_photo = :mot
 
 -- Supprimer le tag de la photo
 DELETE
-FROM Tagphoto
+FROM tagphoto
 WHERE id_photo = :photo
   AND mot = :mot;
 --
