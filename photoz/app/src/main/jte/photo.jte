@@ -2,7 +2,7 @@
 
 @param Photo photo
 
-<a href="/photos/${photo.id_photo}">
+<a href="/photo/${photo.id_photo}">
     <div class="mx-2 my-1 w-96 hover:bg-blue-100 p-1">
         <img src="/images/${photo.chemin}" alt="" class="w-full">
         <p class="font-bold line-clamp-1 mt-1 mb-2">${photo.titre}</p>
