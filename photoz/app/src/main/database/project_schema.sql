@@ -39,7 +39,7 @@ create table photo
 (
     id_photo SERIAL PRIMARY KEY,
     titre       varchar(255) not null,
-    datepubliee date,
+    datepubliee date not null,
     legende     text,
     chemin   varchar(255) not null,
     -- TRUE : public        FALSE : private
@@ -56,7 +56,7 @@ create table photo
 create table commentaire
 (
     id_comm SERIAL PRIMARY KEY,
-    texte    text,
+    texte    text not null,
     pseudo   varchar(255) not null
         constraint "Pseudo_fk"
             references utilisateur,
@@ -149,8 +149,8 @@ create table dossierphoto
 --
 create table badge
 (
-    nom         varchar(255),
-    description varchar(255),
+    nom         varchar(255) not null,
+    description varchar(255) not null,
     id_badge    serial not null
         constraint "badge_pk"
             primary key
