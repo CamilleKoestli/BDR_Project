@@ -5,6 +5,7 @@ import photoz.database.Query;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Statut {
     public String pseudo;
@@ -19,6 +20,18 @@ public class Statut {
         this.pseudoart = pseudoart;
         this.typedemande = accepte_refus;
         this.accepte_refus = accepte_refus;
+    }
+
+    private static ArrayList<Statut> readStatut(ResultSet set) {
+        ArrayList<Statut> statuts = new ArrayList<>();
+        try {
+            while (set.next()) {
+                statuts.add(mapResultSetToStatut(set));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return statuts;
     }
 
     public static Statut mapResultSetToStatut(ResultSet set) {
