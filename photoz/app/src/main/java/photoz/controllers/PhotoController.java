@@ -65,15 +65,17 @@ public class PhotoController {
         System.out.println("id : " + photoId);
         if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
             // Remplir le modèle avec les valeurs actuelles de la photo existante
-            Map<String, Object> model = new HashMap<>();
-            model.put("loggedUtilisateur", App.loggedUser(ctx));
-            /*model.put("titre", trouve.titre);
-            model.put("legende", trouve.legende);
-            model.put("visible", trouve.visible);*/
-            model.put("photo", trouve);
-            model.put("error", "Une erreur s'est produite lors de la modification de la photo.");
+            ctx.render("publish.jte", Map.of("loggedUtilisateur", App.loggedUser(ctx), "photo", trouve ,"error", "Erreur lors de la création de la photo"));
 
-            ctx.render("edit.jte", model);
+            /*Map<String, Object> model = new HashMap<>();
+            model.put("loggedUtilisateur", App.loggedUser(ctx));
+            model.put("titre", trouve.titre);
+            model.put("legende", trouve.legende);
+            model.put("visible", trouve.visible);
+            model.put("photo", trouve);
+            model.put("error", "Une erreur s'est produite lors de la modification de la photo.");*/
+
+//            ctx.render("edit.jte", model);
 
             /*// Maintenant, vous pouvez mettre à jour la photo si le formulaire est soumis
             if (ctx.formParam("submit") != null) {
@@ -104,13 +106,14 @@ public class PhotoController {
         System.out.println("id : " + photoId);
         if (trouve != null && trouve.artistepseudo.equals(((Utilisateur) App.loggedUser(ctx)).pseudo)) {
             // Maintenant, vous pouvez mettre à jour la photo si le formulaire est soumis
-            if (ctx.formParam("submit") != null) {
+//            if (ctx.formParam("submit") != null) {
+
                 trouve.titre = ctx.formParam("titre");
                 trouve.legende = ctx.formParam("legende");
                 trouve.datepubliee = new Date(System.currentTimeMillis());
                 trouve.visible = ctx.formParam("visible").equals("on");
                 trouve.artistepseudo = ((Utilisateur) App.loggedUser(ctx)).pseudo;
-
+            System.out.println("Valeur de titre: " + trouve.titre);
                 if (trouve.update()) {
                     ctx.redirect("/photo/" + trouve.id_photo);
                 } else {
@@ -119,7 +122,7 @@ public class PhotoController {
             } else {
                 ctx.status(404).result("Photo non trouvée");
             }
-        }
+//        }
     }
 
     public void deletePhoto(Context ctx) {

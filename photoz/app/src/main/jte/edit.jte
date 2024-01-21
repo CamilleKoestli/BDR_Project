@@ -18,7 +18,7 @@ content = @`
         <label>Légende</label>
         <textarea class="block mb-5" name="legende" placeholder="optionnel">${photo.legende}</textarea>
         <label for="visible">Visible publiquement</label>
-        <input class="mx-4" type="checkbox" name="visible" id="visible" ${photo.visible != null && photo.visible ? 'checked' : ''}/>
+        <input class="mx-4" type="checkbox" name="visible" id="visible" checked/>
         <button class="block my-5" type="submit">Modifier</button>
         @if (error != null)
             <p class="text-red-500">${error}</p>
