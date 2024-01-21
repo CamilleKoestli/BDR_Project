@@ -4,10 +4,8 @@
 @import java.util.ArrayList
 
 
-<%--@param Photo photo--%>
 @param Utilisateur loggedUtilisateur = null
 @param Utilisateur artiste = null
-<%--@param Badge badge--%>
 @param ArrayList<Photo> photos
 @param ArrayList<Badge> badges
 
@@ -20,7 +18,17 @@ content = @`
                 <ul>
                     @for (Badge badge : badges)
                     <li>
-                        <img src="/firstpost.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                        @if(badge.nom.equals("1photo"))
+                            <img src="/firstpost.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                        @endif
+
+                        @if(badge.nom.equals("100photos"))
+                            <img src="/100photos.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                        @endif
+
+                        @if(badge.nom.equals("100reactions"))
+                            <img src="/100reactions.png"  width="75" height="auto" alt="${badge.nom}" title="${badge.nom}" class="badge-image">
+                        @endif
                     </li>
                     @endfor
                 </ul>

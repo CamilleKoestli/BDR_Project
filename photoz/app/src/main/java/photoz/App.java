@@ -23,8 +23,7 @@ public class App {
     static final int PORT = 7000;
     static Javalin app;
 
-    //TODO REMETTRE A NULL POUR LE RENDU
-    public static Object testLoggedUtilisateur = Utilisateur.find("alfred10");
+    public static Object testLoggedUtilisateur = null;
 
     public static void main(String[] args) {
         System.out.println("photoz server has started...");

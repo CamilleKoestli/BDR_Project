@@ -18,27 +18,11 @@ public class BadgeUtilisateur {
         this.pseudo = pseudo;
     }
 
-    public static ArrayList<Badge> findBadgesForUser(String pseudo){
-        String sql = "SELECT b.id_badge, b.nom " +
-                "FROM badge b " +
-                "INNER JOIN badgeutilisateur bu ON b.id_badge = bu.id_badge " +
-                "WHERE bu.pseudo = ?";
-
-        ArrayList<Badge> badges = new ArrayList<>();
-
-        try (ResultSet resultSet = Query.query(sql, new Object[]{pseudo})) {
-            while (resultSet.next()) {
-                Badge badge = new Badge();
-                badge.nom = resultSet.getString("nom");
-                badges.add(badge);
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e);
-        }
-
-        return badges;
+    public static ArrayList<BadgeUtilisateur> listBadgesUtilisateur(String pseudo){
+        ResultSet set = Query.query("SELECT * FROM badgeutilisateur WHERE pseudo = ?", new Object[]{pseudo});
+        return readBadgesUtilisateur(set);
     }
+
 
     private static ArrayList<BadgeUtilisateur> readBadgesUtilisateur(ResultSet set) {
         ArrayList<BadgeUtilisateur> badgesUtilisateur = new ArrayList<>();
